@@ -41,10 +41,10 @@ class StockCandlestickPainter extends CustomPainter {
     if (stockData == null) return;
     _drawValuesText(canvas, size);
     _drawLines(canvas, size);
-    _drawCandlestick(canvas, size, animation);
+    _drawCandlestick(canvas, size);
   }
 
-  void _drawCandlestick(Canvas canvas, Size size, Animation<double> animation) {
+  void _drawCandlestick(Canvas canvas, Size size) {
     var painterHelper = CandlesticksChartHelperPainterModel(size: size, stockData: stockData!);
 
     List<CandlestickPaintDimensModel> candlesticks = painterHelper.generateCandlesticks;
@@ -56,17 +56,17 @@ class StockCandlestickPainter extends CustomPainter {
   }
 
   void _drawLines(Canvas canvas, Size size) {
+    var lineModel = HorizontalLineHelperPainterModel(size: size, animation: animation);
+
     for (int index = 0; index < CandlesticksChartHelperPainterModel.numberLines; ++index) {
-      var lineModel = HorizontalLineHelperPainterModel(index: index, size: size);
-      canvas.drawLine(lineModel.initialLinePont, lineModel.endLinePont, lineModel.linePaint);
+      canvas.drawLine(lineModel.initPoint(index), lineModel.endPoint(index), lineModel.linePaint);
     }
   }
 
   void _drawValuesText(Canvas canvas, Size size) {
     for (int index = 0; index < CandlesticksChartHelperPainterModel.numberLines; ++index) {
-      var valueTexModel = ValueTexHelperPainterModel(index: index, high: stockData?.high, low: stockData?.low);
-      Offset offset = valueTexModel.getValuesTextOffset(index, size);
-      valueTexModel.textPainter.paint(canvas, offset);
+      var valueTex = ValueTexHelperPainterModel(index: index, stockData: stockData, animation: animation, size: size);
+      valueTex.textPainter.paint(canvas, valueTex.valuesTextOffset);
     }
   }
 }
