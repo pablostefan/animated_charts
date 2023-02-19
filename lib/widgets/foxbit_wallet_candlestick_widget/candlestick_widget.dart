@@ -3,18 +3,18 @@ import 'package:animated_charts/models/stock_time_performance_model.dart';
 import 'package:animated_charts/widgets/foxbit_wallet_candlestick_widget/candlestick_painter.dart';
 import 'package:flutter/material.dart';
 
-class StockCandlestickWidget extends StatefulWidget {
+class CandlestickWidget extends StatefulWidget {
   final StockTimeFramePerformanceModel? stockData;
 
-  const StockCandlestickWidget({required this.stockData, Key? key}) : super(key: key);
+  const CandlestickWidget({required this.stockData, Key? key}) : super(key: key);
 
   static const double height = ChartDimens.slgiant;
 
   @override
-  State<StockCandlestickWidget> createState() => _StockCandlestickState();
+  State<CandlestickWidget> createState() => _StockCandlestickState();
 }
 
-class _StockCandlestickState extends State<StockCandlestickWidget> with SingleTickerProviderStateMixin {
+class _StockCandlestickState extends State<CandlestickWidget> with SingleTickerProviderStateMixin {
   late Animation<double> _animation;
   late AnimationController _animationController;
 
@@ -40,7 +40,7 @@ class _StockCandlestickState extends State<StockCandlestickWidget> with SingleTi
           return Container(
               margin: const EdgeInsets.only(bottom: ChartDimens.femto, top: ChartDimens.xxxmacro),
               padding: const EdgeInsets.symmetric(horizontal: ChartDimens.xxxs),
-              height: StockCandlestickWidget.height,
+              height: CandlestickWidget.height,
               child: CustomPaint(
                   size: Size.infinite,
                   painter: StockCandlestickPainter(stockData: widget.stockData, animation: _animation)));

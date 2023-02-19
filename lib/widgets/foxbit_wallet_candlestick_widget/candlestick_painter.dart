@@ -45,13 +45,13 @@ class StockCandlestickPainter extends CustomPainter {
   }
 
   void _drawCandlestick(Canvas canvas, Size size, Animation<double> animation) {
-    Size newSize = CandlesticksChartHelperPainterModel.getNewSize(size);
-    List<CandlestickPaintDimensModel> candlesticks =
-        CandlesticksChartHelperPainterModel.generateCandlesticks(newSize, stockData);
+    var painterHelper = CandlesticksChartHelperPainterModel(size: size, stockData: stockData!);
+
+    List<CandlestickPaintDimensModel> candlesticks = painterHelper.generateCandlesticks;
 
     for (CandlestickPaintDimensModel candlestick in candlesticks) {
-      _paintWick(candlestick: candlestick, canvas: canvas, size: newSize, animation: animation);
-      _paintCandle(candlestick: candlestick, canvas: canvas, size: newSize, animation: animation);
+      _paintWick(candlestick: candlestick, canvas: canvas, size: painterHelper.size, animation: animation);
+      _paintCandle(candlestick: candlestick, canvas: canvas, size: painterHelper.size, animation: animation);
     }
   }
 

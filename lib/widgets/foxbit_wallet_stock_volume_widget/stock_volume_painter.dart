@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 
 class StockVolumePainter extends CustomPainter {
   final StockTimeFramePerformanceModel? stockData;
+  final Animation<double> animation;
 
-  StockVolumePainter({required this.stockData});
+  StockVolumePainter({required this.stockData, required this.animation});
 
   @override
   void paint(Canvas canvas, Size size) {
     if (stockData == null) return;
-
-    List<BarModel> bars = BarHelperPainterModel(stockData: stockData).generateBars(size);
+    BarHelperPainterModel barHelper = BarHelperPainterModel(stockData: stockData, animation: animation, size: size);
+    List<BarModel> bars = barHelper.generateBars;
 
     for (BarModel bar in bars) {
       double barLeft = BarHelperPainterModel.getBarLeft(bar);

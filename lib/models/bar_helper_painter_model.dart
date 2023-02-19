@@ -7,6 +7,14 @@ import 'package:flutter/material.dart';
 
 class BarHelperPainterModel {
   final StockTimeFramePerformanceModel? stockData;
+  final Animation<double> animation;
+  final Size size;
+
+  BarHelperPainterModel({required this.stockData, required this.animation, required this.size});
+
+  double get _pixelsPerTimeWindow => size.width / (stockData!.timeWindow.length - 1);
+
+  double get _pixelsPerStockOrder => size.height / stockData!.maxWindowVolume;
 
   Paint get _gainPaint => Paint()..color = ChartColors.amountTransactionHistory;
 
@@ -14,21 +22,19 @@ class BarHelperPainterModel {
 
   double get _barWidth => ChartDimens.xpico;
 
-  BarHelperPainterModel({required this.stockData});
+  double _getBarCenterX(int index) => index * _pixelsPerTimeWindow * animation.value;
 
-  List<BarModel> generateBars(Size availableSpace) {
-    final double pixelsPerTimeWindow = availableSpace.width / (stockData!.timeWindow.length - 1);
-    final double pixelsPerStockOrder = availableSpace.height / stockData!.maxWindowVolume;
+  BarModel _getBarModel(int index) {
+    StockTimeWindowModel window = stockData!.timeWindow[index];
+    double barHeight = window.volume * _pixelsPerStockOrder;
+    double barCenterX = _getBarCenterX(index);
+    Paint barPaint = window.isGain ? _gainPaint : _lossPaint;
 
-    List<BarModel> bars = [];
+    return BarModel(width: _barWidth, height: barHeight, paint: barPaint, centerX: barCenterX);
+  }
 
-    for (int i = 0; i < stockData!.timeWindow.length; ++i) {
-      StockTimeWindowModel window = stockData!.timeWindow[i];
-      double barHeight = window.volume * pixelsPerStockOrder;
-      double barCenterX = i * pixelsPerTimeWindow;
-      Paint barPaint = window.isGain ? _gainPaint : _lossPaint;
-      bars.add(BarModel(width: _barWidth, height: barHeight, paint: barPaint, centerX: barCenterX));
-    }
+  List<BarModel> get generateBars {
+    List<BarModel> bars = stockData!.timeWindow.map((_) => _getBarModel(stockData!.timeWindow.indexOf(_))).toList();
 
     return bars;
   }
