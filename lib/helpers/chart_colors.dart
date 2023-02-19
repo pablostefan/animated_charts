@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+
+abstract class ChartColors {
+  static const Color monoBlack = Colors.black;
+  static const Color monoWhite = Colors.white;
+  static const Color transparent = Colors.transparent;
+  static const Color monoLight = Color(0xFFF9F9F9);
+  static const Color lightWalletPrimary = Color.fromRGBO(204, 221, 97, 1);
+  static const Color lightMonochromatic = Color.fromRGBO(245, 245, 245, 1);
+  static const Color lightGreen = Color.fromRGBO(231, 255, 236, 1);
+  static const Color extraLightGreen = Color.fromRGBO(190, 244, 214, 1);
+  static const Color darkSuccess = Color.fromRGBO(0, 44, 41, 1);
+  static const Color mediumLightGreen = Color.fromRGBO(28, 201, 125, 1);
+  static const Color lightMonoGray = Color.fromRGBO(141, 149, 157, 1);
+  static const Color darkMonoGray = Color.fromRGBO(81, 81, 81, 1);
+  static const Color lightGray = Color.fromRGBO(191, 187, 187, 1);
+  static const Color darkLineColor = Color.fromRGBO(36, 36, 36, 1);
+  static const Color darkGray = Color.fromRGBO(24, 24, 24, 1);
+  static const Color primaryButtonColor = Color.fromRGBO(222, 239, 117, 1);
+  static const Color radioListColor = Color.fromRGBO(204, 221, 97, 1);
+  static const Color radioListColorDisabled = Color(0xFFADB5BD);
+  static const Color radioBorderColor = Color.fromRGBO(173, 181, 189, 1);
+  static const Color lightMonochromaticMono = Color.fromRGBO(249, 249, 249, 1);
+  static const Color lightMonochromaticMonoLight = Color.fromRGBO(233, 236, 239, 1);
+  static const Color lightProductsWalletPrimary = Color.fromRGBO(251, 255, 223, 1);
+  static const Color darkMonochromaticMono = Color.fromRGBO(36, 36, 36, 1);
+  static const Color darkMonochromaticMonoDark = Color.fromRGBO(166, 166, 166, 1);
+  static const Color darkSliverAppBarColor = Color.fromRGBO(24, 24, 24, 1);
+  static const Color darkError = Color.fromRGBO(255, 50, 62, 1);
+  static const Color lightLine = Color.fromRGBO(233, 236, 239, 1);
+  static const Color lightBorder = Color.fromRGBO(253, 255, 240, 1);
+  static const Color darkBorder = Color.fromRGBO(50, 50, 50, 1);
+  static const Color lightTextAmount = Color.fromRGBO(147, 147, 147, 1);
+  static const Color darkTextAmount = Color.fromRGBO(166, 166, 166, 1);
+  static const Color darkTextSuccess = Color.fromRGBO(69, 212, 147, 1);
+  static const Color gradientQRCode = Color.fromRGBO(224, 224, 224, 0);
+  static const Color amountIconColor = Color.fromRGBO(192, 192, 195, 1);
+  static const Color lightGreenInitialsIcon = Color.fromRGBO(231, 245, 139, 1);
+  static const Color darkSymbolColor = Color.fromRGBO(137, 137, 137, 1);
+  static const Color candlestickRedColor = Color.fromRGBO(255, 71, 71, 1);
+  static const Color candlestickBarColor = Color.fromRGBO(244, 245, 248, 1);
+  static const Color candlestickValuesColor = Color.fromRGBO(189, 192, 206, 1);
+  static const Color selectedTextColor = Color.fromRGBO(181, 198, 79, 1);
+  static const Color popupMenuShadow = Color.fromRGBO(167, 167, 167, 0.25);
+  static const Color amountTransactionHistory = Color.fromRGBO(28, 201, 125, 1);
+}
