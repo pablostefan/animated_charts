@@ -1,5 +1,4 @@
 class CandlestickDataModel {
-  final DateTime dateTime;
   final double open;
   final double high;
   final double low;
@@ -7,11 +6,12 @@ class CandlestickDataModel {
   final double volume;
 
   CandlestickDataModel({
-    required this.dateTime,
-    required this.open,
-    required this.high,
     required this.low,
+    required this.high,
     required this.close,
+    required this.open,
     required this.volume,
   });
+
+  bool get isGain => close >= open;
 }

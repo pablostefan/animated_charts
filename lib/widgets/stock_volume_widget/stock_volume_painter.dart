@@ -1,10 +1,10 @@
 import 'package:animated_charts/models/bar_helper_painter_model.dart';
 import 'package:animated_charts/models/bar_model.dart';
-import 'package:animated_charts/models/stock_time_performance_model.dart';
+import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
 import 'package:flutter/material.dart';
 
 class StockVolumePainter extends CustomPainter {
-  final StockTimeFramePerformanceModel? stockData;
+  final CandlestickStockPerformanceModel? stockData;
   final Animation<double> animation;
 
   StockVolumePainter({required this.stockData, required this.animation});

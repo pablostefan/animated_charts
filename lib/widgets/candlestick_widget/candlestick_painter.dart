@@ -1,14 +1,14 @@
 import 'package:animated_charts/models/candle_helper_painter_model.dart';
 import 'package:animated_charts/models/candlestick_helper_painter_model.dart';
 import 'package:animated_charts/models/candlestick_paint_dimens_model.dart';
+import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
 import 'package:animated_charts/models/horizontal_line_helper_painter_model.dart';
-import 'package:animated_charts/models/stock_time_performance_model.dart';
 import 'package:animated_charts/models/value_text_helper_painter_model.dart';
 import 'package:animated_charts/models/wick_helper_painter_model.dart';
 import 'package:flutter/material.dart';
 
 class StockCandlestickPainter extends CustomPainter {
-  final StockTimeFramePerformanceModel? stockData;
+  final CandlestickStockPerformanceModel? stockData;
   final Animation<double> animation;
 
   StockCandlestickPainter({required this.stockData, required this.animation});
@@ -31,17 +31,6 @@ class StockCandlestickPainter extends CustomPainter {
   }) {
     var candlePaint = CandleHelperPainterModel(candlestick: candlestick, size: size, animation: animation);
     canvas.drawRRect(candlePaint.candlestickRRect, candlestick.candlePaint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    if (stockData == null) return;
-    _drawValuesText(canvas, size);
-    _drawLines(canvas, size);
-    _drawCandlestick(canvas, size);
   }
 
   void _drawCandlestick(Canvas canvas, Size size) {
@@ -69,4 +58,15 @@ class StockCandlestickPainter extends CustomPainter {
       valueTex.textPainter.paint(canvas, valueTex.valuesTextOffset);
     }
   }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (stockData == null) return;
+    _drawValuesText(canvas, size);
+    _drawLines(canvas, size);
+    _drawCandlestick(canvas, size);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

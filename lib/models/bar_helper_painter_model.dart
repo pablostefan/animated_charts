@@ -1,18 +1,18 @@
 import 'package:animated_charts/helpers/chart_colors.dart';
 import 'package:animated_charts/helpers/dimens.dart';
 import 'package:animated_charts/models/bar_model.dart';
-import 'package:animated_charts/models/stock_time_performance_model.dart';
-import 'package:animated_charts/models/stock_time_window_model.dart';
+import 'package:animated_charts/models/candlestick_data_model.dart';
+import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
 import 'package:flutter/material.dart';
 
 class BarHelperPainterModel {
-  final StockTimeFramePerformanceModel? stockData;
+  final CandlestickStockPerformanceModel? stockData;
   final Animation<double> animation;
   final Size size;
 
   BarHelperPainterModel({required this.stockData, required this.animation, required this.size});
 
-  double get _pixelsPerTimeWindow => size.width / (stockData!.timeWindow.length - 1);
+  double get _pixelsPerTimeWindow => size.width / (stockData!.data.length - 1);
 
   double get _pixelsPerStockOrder => size.height / stockData!.maxWindowVolume;
 
@@ -25,7 +25,7 @@ class BarHelperPainterModel {
   double _getBarCenterX(int index) => index * _pixelsPerTimeWindow * animation.value;
 
   BarModel _getBarModel(int index) {
-    StockTimeWindowModel window = stockData!.timeWindow[index];
+    CandlestickDataModel window = stockData!.data[index];
     double barHeight = window.volume * _pixelsPerStockOrder;
     double barCenterX = _getBarCenterX(index);
     Paint barPaint = window.isGain ? _gainPaint : _lossPaint;
@@ -34,7 +34,7 @@ class BarHelperPainterModel {
   }
 
   List<BarModel> get generateBars {
-    List<BarModel> bars = stockData!.timeWindow.map((_) => _getBarModel(stockData!.timeWindow.indexOf(_))).toList();
+    List<BarModel> bars = stockData!.data.map((_) => _getBarModel(stockData!.data.indexOf(_))).toList();
 
     return bars;
   }

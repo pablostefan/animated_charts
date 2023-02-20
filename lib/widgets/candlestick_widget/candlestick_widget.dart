@@ -1,10 +1,10 @@
 import 'package:animated_charts/helpers/dimens.dart';
-import 'package:animated_charts/models/stock_time_performance_model.dart';
-import 'package:animated_charts/widgets/foxbit_wallet_candlestick_widget/candlestick_painter.dart';
+import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
+import 'package:animated_charts/widgets/candlestick_widget/candlestick_painter.dart';
 import 'package:flutter/material.dart';
 
 class CandlestickWidget extends StatefulWidget {
-  final StockTimeFramePerformanceModel? stockData;
+  final CandlestickStockPerformanceModel? stockData;
 
   const CandlestickWidget({required this.stockData, Key? key}) : super(key: key);
 

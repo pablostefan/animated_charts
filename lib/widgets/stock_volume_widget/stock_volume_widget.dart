@@ -1,15 +1,15 @@
 import 'package:animated_charts/helpers/dimens.dart';
-import 'package:animated_charts/models/stock_time_performance_model.dart';
-import 'package:animated_charts/widgets/foxbit_wallet_stock_volume_widget/stock_volume_painter.dart';
+import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
+import 'package:animated_charts/widgets/stock_volume_widget/stock_volume_painter.dart';
 import 'package:flutter/material.dart';
 
 class StockVolumeWidget extends StatefulWidget {
-  final StockTimeFramePerformanceModel? stockData;
+  final CandlestickStockPerformanceModel? stockData;
   final EdgeInsetsGeometry margin;
 
   const StockVolumeWidget({
-    required this.stockData,
     Key? key,
+    required this.stockData,
     this.margin = const EdgeInsets.only(right: ChartDimens.xxxs, left: ChartDimens.xxxs, top: ChartDimens.nano),
   }) : super(key: key);
 

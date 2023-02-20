@@ -2,11 +2,11 @@ import 'package:animated_charts/helpers/chart_colors.dart';
 import 'package:animated_charts/helpers/dimens.dart';
 import 'package:animated_charts/helpers/mask_money.dart';
 import 'package:animated_charts/models/candlestick_helper_painter_model.dart';
-import 'package:animated_charts/models/stock_time_performance_model.dart';
+import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
 import 'package:flutter/material.dart';
 
 class ValueTexHelperPainterModel {
-  final StockTimeFramePerformanceModel? stockData;
+  final CandlestickStockPerformanceModel? stockData;
   final Animation<double> animation;
   final int index;
   late TextPainter textPainter;
