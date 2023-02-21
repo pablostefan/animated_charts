@@ -8,11 +8,11 @@ class LineChartMathHelperModel {
 
   LineChartMathHelperModel({required this.stockData, required this.size});
 
-  static const int numberLines = 8;
+  static const int numberLines = 10;
 
   double get heightDistance => size.height / (numberLines - 1);
 
-  double get additionalHeight => (stockData.maxValue - stockData.minValue) / ChartDimens.pico;
+  double get additionalHeight => (stockData.maxValue - stockData.minValue) / ChartDimens.nano;
 
   double get maxValue => stockData.maxValue + additionalHeight;
 
