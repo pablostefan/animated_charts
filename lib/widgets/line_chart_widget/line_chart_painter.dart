@@ -63,9 +63,9 @@ class LineChartPainter extends CustomPainter {
     var lineChartHelper = LineChartHelperPainterModel(stockData: stockData!, size: size, animation: animation);
 
     _drawCurveLines(canvas, lineChartHelper);
-    _drawGradient(canvas, lineChartHelper);
     _drawHorizontalLines(canvas, size);
     _drawDashedVerticalLines(canvas, size);
+    _drawGradient(canvas, lineChartHelper);
     _drawCursor(canvas, size);
   }
 

@@ -40,7 +40,7 @@ class CandlestickChartViewModel {
 
   LineChartStockPerformanceModel stockDataLineChart = LineChartStockPerformanceModel(data: [
     LineChartDataModel(date: '', value: 100),
-    LineChartDataModel(date: '', value: 200),
+    LineChartDataModel(date: '', value: 150),
     LineChartDataModel(date: '', value: 300),
     LineChartDataModel(date: '', value: 600),
     LineChartDataModel(date: '', value: 100),

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:animated_charts/models/line_chart_data_model.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
 import 'package:animated_charts/widgets/line_chart_widget/line_chart_widget.dart';
 import 'package:flutter/material.dart';
@@ -35,10 +36,13 @@ class LineChartHelperPainterModel {
 
   Path get _linePath {
     Path path = Path();
-    for (int index = 0; index < stockData.data.length; index++) {
-      Offset offset = _getOffsetFromValue(index);
-      index == 0 ? path.moveTo(offset.dx, offset.dy) : path.lineTo(offset.dx, offset.dy);
+
+    for (LineChartDataModel element in stockData.data) {
+      Offset offset = _getOffsetFromValue(element);
+      bool isFirst = stockData.data.first == element;
+      isFirst ? path.moveTo(offset.dx, offset.dy) : path.lineTo(offset.dx, offset.dy);
     }
+
     return path;
   }
 
@@ -47,13 +51,11 @@ class LineChartHelperPainterModel {
   double _getAxisY(int index, double animationValue) {
     double lineChartDataValue = stockData.data[index].value;
 
-    if (lineChartDataValue == stockData.maxValue) return 0;
-    if (lineChartDataValue == stockData.minValue) return size.height;
-
     return size.height - (lineChartDataValue - stockData.minValue) * _heightPerUnit * animationValue;
   }
 
-  Offset _getOffsetFromValue(int index, {double animationValue = 1}) {
+  Offset _getOffsetFromValue(LineChartDataModel model, {double animationValue = 1}) {
+    int index = stockData.data.indexOf(model);
     double axisY = _getAxisY(index, animationValue);
     double axisX = _getAxisX(index);
 
@@ -72,7 +74,7 @@ class LineChartHelperPainterModel {
     Path path = _linePath;
     List<PathMetric> metrics = path.computeMetrics().toList();
     PathMetric metric = metrics.first;
-    double drawLimit = _remap(animation.value, 0, 1, 0, metric.length - 1);
+    double drawLimit = _remap(animation.value, 0, 1, 0, metric.length);
     Path partialPath = Path();
     double currentContour = 0.0;
 
@@ -91,16 +93,13 @@ class LineChartHelperPainterModel {
 
   Path get gradientPath {
     Path path = Path();
-    for (int index = 0; index < stockData.data.length - 1; index++) {
-      List<Offset> points = [
-        _getOffsetFromValue(index, animationValue: animation.value),
-        _getOffsetFromValue(index + 1, animationValue: animation.value),
-        Offset(_getAxisX(index + 1), size.height),
-        Offset(_getAxisX(index), size.height)
-      ];
+    List<Offset> points = [
+      Offset(0, size.height),
+      ...stockData.data.map((e) => _getOffsetFromValue(e, animationValue: animation.value)).toList(),
+      Offset(_getAxisX(stockData.data.length - 1), size.height),
+    ];
 
-      path.addPolygon(points, true);
-    }
+    path.addPolygon(points, true);
 
     return path;
   }
