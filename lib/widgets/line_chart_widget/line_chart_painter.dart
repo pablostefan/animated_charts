@@ -13,8 +13,14 @@ class LineChartPainter extends CustomPainter {
   final LineChartStockPerformanceModel? stockData;
   final Animation<double> animation;
   final double? cursorPosition;
+  final bool showTooltip;
 
-  LineChartPainter({required this.stockData, required this.animation, required this.cursorPosition});
+  LineChartPainter({
+    required this.stockData,
+    required this.animation,
+    required this.cursorPosition,
+    required this.showTooltip,
+  });
 
   void _drawCurveLines(Canvas canvas, LineChartHelperPainterModel lineChartHelper) {
     canvas.drawPath(lineChartHelper.animatedLinePath, lineChartHelper.linePaint);
@@ -55,15 +61,17 @@ class LineChartPainter extends CustomPainter {
   }
 
   void _drawTooltip(Canvas canvas, Size size) {
-    var tooltip = TooltipHelperPainterModel(
-      size: size,
-      cursorPosition: cursorPosition,
-      stockData: stockData!,
-      animation: animation,
-    );
+    if (showTooltip) {
+      var tooltip = TooltipHelperPainterModel(
+        size: size,
+        cursorPosition: cursorPosition,
+        stockData: stockData!,
+        animation: animation,
+      );
 
-    canvas.drawRRect(tooltip.tooltipRRect, tooltip.rectPaint);
-    tooltip.textPainter.paint(canvas, tooltip.tooltipTextOffset);
+      canvas.drawRRect(tooltip.tooltipRRect, tooltip.rectPaint);
+      tooltip.textPainter.paint(canvas, tooltip.tooltipTextOffset);
+    }
   }
 
   @override
@@ -73,8 +81,8 @@ class LineChartPainter extends CustomPainter {
 
     _drawCurveLines(canvas, lineChartHelper);
     _drawHorizontalLines(canvas, size);
-    _drawDashedVerticalLines(canvas, size);
     _drawGradient(canvas, lineChartHelper);
+    _drawDashedVerticalLines(canvas, size);
     _drawTooltip(canvas, size);
     _drawCursor(canvas, size);
   }

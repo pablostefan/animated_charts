@@ -28,7 +28,7 @@ class DottedLineHelperPainterModel {
   Path get linePath {
     final path = Path()
       ..moveTo(_positionHelper.axisX, 0)
-      ..lineTo(_positionHelper.axisX, _positionHelper.axisY);
+      ..lineTo(_positionHelper.axisX, size.height);
 
     return path;
   }

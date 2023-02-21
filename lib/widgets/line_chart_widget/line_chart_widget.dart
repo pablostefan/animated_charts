@@ -22,6 +22,7 @@ class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProv
   late Animation<double> _animation;
   late AnimationController _animationController;
   double? _cursorPosition;
+  bool _showTooltip = false;
 
   @override
   void initState() {
@@ -32,10 +33,23 @@ class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProv
   }
 
   void _handleDrag(double position) {
+    _lightImpact(position);
+    _onChangeHandler(position);
+  }
+
+  void _lightImpact(double position) {
     bool isIndexValid = position % widget.stockData.data.length == 0;
     if (isIndexValid) HapticFeedback.lightImpact();
-    setState(() => _cursorPosition = position);
   }
+
+  void _onChangeHandler(double position) {
+    setState(() {
+      _cursorPosition = position;
+      _showTooltip = true;
+    });
+  }
+
+  void _onHorizontalDragEnd(_) => setState(() => _showTooltip = false);
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +57,20 @@ class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProv
         animation: _animationController,
         builder: (_, __) {
           return GestureDetector(
+              onHorizontalDragCancel: () => _onHorizontalDragEnd(_),
+              onHorizontalDragStart: (details) => _handleDrag(details.localPosition.dx),
               onHorizontalDragUpdate: (details) => _handleDrag(details.localPosition.dx),
+              onHorizontalDragEnd: _onHorizontalDragEnd,
               child: Container(
                   height: ChartDimens.slgiant,
                   margin: widget.margin,
                   child: CustomPaint(
                       size: Size.infinite,
                       painter: LineChartPainter(
-                          stockData: widget.stockData, animation: _animation, cursorPosition: _cursorPosition))));
+                          showTooltip: _showTooltip,
+                          stockData: widget.stockData,
+                          animation: _animation,
+                          cursorPosition: _cursorPosition))));
         });
   }
 }
