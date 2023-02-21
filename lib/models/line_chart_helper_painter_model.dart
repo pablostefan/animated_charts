@@ -87,14 +87,14 @@ class LineChartHelperPainterModel {
   }
 
   Path get gradientPath {
-    Path path = Path();
-    List<Offset> points = [
-      Offset(0, size.height),
-      ...stockData.data.map((e) => _getOffsetFromValue(e, animationValue: animation.value)).toList(),
-      Offset(_getAxisX(stockData.data.length - 1), size.height),
-    ];
+    Path path = Path()..moveTo(0, size.height);
 
-    path.addPolygon(points, true);
+    for (LineChartDataModel element in stockData.data) {
+      Offset offset = _getOffsetFromValue(element, animationValue: animation.value);
+      path.lineTo(offset.dx, offset.dy);
+    }
+    path.lineTo(size.width, size.height);
+    path.close();
 
     return path;
   }
