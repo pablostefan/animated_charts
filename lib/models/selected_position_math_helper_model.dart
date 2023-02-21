@@ -1,3 +1,4 @@
+import 'package:animated_charts/models/line_chart_data_model.dart';
 import 'package:animated_charts/models/line_chart_math_helper_model.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
 import 'package:flutter/material.dart';
@@ -28,4 +29,6 @@ class SelectedPositionMathHelperModel {
 
     return size.height - (lineChartDataValue - _mathHelper.minValue) * _mathHelper.heightPerUnit;
   }
+
+  LineChartDataModel get selectedData => stockData.data[_selectedIndex];
 }

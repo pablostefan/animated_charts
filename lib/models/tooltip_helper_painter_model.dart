@@ -1,4 +1,6 @@
+import 'package:animated_charts/helpers/chart_colors.dart';
 import 'package:animated_charts/helpers/dimens.dart';
+import 'package:animated_charts/helpers/mask_money.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
 import 'package:animated_charts/models/selected_position_math_helper_model.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ class TooltipHelperPainterModel {
   final LineChartStockPerformanceModel stockData;
   final Animation<double> animation;
   late final SelectedPositionMathHelperModel _positionHelper;
+  late TextPainter textPainter;
 
   TooltipHelperPainterModel({
     required this.size,
@@ -17,15 +20,27 @@ class TooltipHelperPainterModel {
     required this.animation,
   }) {
     _positionHelper = SelectedPositionMathHelperModel(stockData: stockData, size: size, cursorPosition: cursorPosition);
+    textPainter = _buildValuesTextPainter(_valueText);
+    textPainter.layout(minWidth: 0, maxWidth: _maxWidthValuesText);
   }
+
+  double get _maxWidthValuesText => ChartDimens.xxxlg;
+
+  TextStyle get _valuesTextStyle {
+    Color textColor = ChartColors.monoWhite.withOpacity(animation.value);
+
+    return TextStyle(color: textColor, fontSize: ChartDimens.micro);
+  }
+
+  String get _valueText => _positionHelper.selectedData.value.moneyMask();
 
   Paint get rectPaint => Paint()
     ..color = Colors.black26.withOpacity(animation.value * 0.5)
     ..style = PaintingStyle.fill;
 
-  double get _tooltipWidth => ChartDimens.xxxllg;
+  double get _tooltipWidth => ChartDimens.sm;
 
-  double get _tooltipHeight => ChartDimens.xxxllg;
+  double get _tooltipHeight => ChartDimens.sm;
 
   double get _tooltipBottom => _positionHelper.axisY - ChartDimens.micro;
 
@@ -69,5 +84,23 @@ class TooltipHelperPainterModel {
       tooltipBottomRightOffset.dy,
       const Radius.circular(ChartDimens.micro),
     );
+  }
+
+  Offset get tooltipTextOffset {
+    double axisX = tooltipTopLeftOffset.dx + ChartDimens.micro;
+    double axisY = tooltipTopLeftOffset.dy + ChartDimens.micro;
+
+    return Offset(axisX, axisY);
+  }
+
+  TextSpan _buildValuesTextSpan(String text) => TextSpan(text: text, style: _valuesTextStyle);
+
+  TextPainter _buildValuesTextPainter(String text) {
+    return TextPainter(
+        strutStyle: StrutStyle.fromTextStyle(_valuesTextStyle),
+        text: _buildValuesTextSpan(text),
+        textDirection: TextDirection.ltr,
+        textAlign: TextAlign.left,
+        maxLines: 1);
   }
 }

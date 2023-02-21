@@ -63,6 +63,7 @@ class LineChartPainter extends CustomPainter {
     );
 
     canvas.drawRRect(tooltip.tooltipRRect, tooltip.rectPaint);
+    tooltip.textPainter.paint(canvas, tooltip.tooltipTextOffset);
   }
 
   @override
