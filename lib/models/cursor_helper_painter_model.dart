@@ -6,13 +6,11 @@ class CursorHelperPainterModel {
   final Size size;
   final double? cursorPosition;
   final LineChartStockPerformanceModel stockData;
-  final Animation<double> animation;
 
   CursorHelperPainterModel({
     required this.size,
     required this.cursorPosition,
     required this.stockData,
-    required this.animation,
   });
 
   Paint get bigCirclePainter => Paint()
@@ -41,9 +39,6 @@ class CursorHelperPainterModel {
 
   double get _axisY {
     double lineChartDataValue = stockData.data[_selectedIndex].value;
-
-    if (lineChartDataValue == stockData.maxValue) return 0;
-    if (lineChartDataValue == stockData.minValue) return size.height;
 
     return size.height - (lineChartDataValue - stockData.minValue) * _heightPerUnit;
   }

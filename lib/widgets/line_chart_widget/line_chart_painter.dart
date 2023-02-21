@@ -4,6 +4,7 @@ import 'package:animated_charts/models/dotted_line_helper_painter_model.dart';
 import 'package:animated_charts/models/line_chart_helper_painter_model.dart';
 import 'package:animated_charts/models/line_chart_horizontal_line_helper_painter_model.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
+import 'package:animated_charts/models/tooltip_helper_painter_model.dart';
 import 'package:dash_painter/dash_painter.dart';
 import 'package:flutter/material.dart';
 
@@ -46,15 +47,21 @@ class LineChartPainter extends CustomPainter {
   }
 
   void _drawCursor(Canvas canvas, Size size) {
-    var verticalLine = CursorHelperPainterModel(
-      size: size,
-      cursorPosition: cursorPosition,
-      animation: animation,
-      stockData: stockData!,
-    );
+    var verticalLine = CursorHelperPainterModel(size: size, cursorPosition: cursorPosition, stockData: stockData!);
 
     canvas.drawPath(verticalLine.bigCirclePath, verticalLine.bigCirclePainter);
     canvas.drawPath(verticalLine.smallCirclePath, verticalLine.smallCirclePainter);
+  }
+
+  void _drawTooltip(Canvas canvas, Size size) {
+    var tooltip = TooltipHelperPainterModel(
+      size: size,
+      cursorPosition: cursorPosition,
+      stockData: stockData!,
+      animation: animation,
+    );
+
+    canvas.drawRRect(tooltip.tooltipRRect, tooltip.rectPaint);
   }
 
   @override
@@ -66,6 +73,7 @@ class LineChartPainter extends CustomPainter {
     _drawHorizontalLines(canvas, size);
     _drawDashedVerticalLines(canvas, size);
     _drawGradient(canvas, lineChartHelper);
+    _drawTooltip(canvas, size);
     _drawCursor(canvas, size);
   }
 
