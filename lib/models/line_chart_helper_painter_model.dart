@@ -72,7 +72,7 @@ class LineChartHelperPainterModel {
     Path path = _linePath;
     List<PathMetric> metrics = path.computeMetrics().toList();
     PathMetric metric = metrics.first;
-    double drawLimit = _remap(animation.value, 0, 1, 0, metric.length);
+    double drawLimit = _remap(animation.value, 0, 1, 0, metric.length - 1);
     Path partialPath = Path();
     double currentContour = 0.0;
 

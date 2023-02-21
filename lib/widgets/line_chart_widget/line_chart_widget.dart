@@ -2,6 +2,7 @@ import 'package:animated_charts/helpers/dimens.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
 import 'package:animated_charts/widgets/line_chart_widget/line_chart_painter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class LineChartWidget extends StatefulWidget {
   final LineChartStockPerformanceModel stockData;
@@ -11,7 +12,7 @@ class LineChartWidget extends StatefulWidget {
   const LineChartWidget({
     Key? key,
     required this.stockData,
-    this.margin = const EdgeInsets.only(right: ChartDimens.xxxs, left: ChartDimens.xxxs, top: ChartDimens.nano),
+    this.margin = const EdgeInsets.only(right: ChartDimens.xxxs, left: ChartDimens.xxxs, top: ChartDimens.xxs),
   }) : super(key: key);
 
   @override
@@ -21,6 +22,7 @@ class LineChartWidget extends StatefulWidget {
 class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProviderStateMixin {
   late Animation<double> _animation;
   late AnimationController _animationController;
+  double? _cursorPosition;
 
   @override
   void initState() {
@@ -30,16 +32,26 @@ class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProv
     super.initState();
   }
 
+  void _handleDrag(double position) {
+    bool isIndexValid = position % widget.stockData.data.length == 0;
+    if (isIndexValid) HapticFeedback.lightImpact();
+    setState(() => _cursorPosition = position);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         animation: _animationController,
         builder: (_, __) {
-          return Container(
-              height: LineChartWidget.height,
-              margin: widget.margin,
-              child: CustomPaint(
-                  size: Size.infinite, painter: LineChartPainter(stockData: widget.stockData, animation: _animation)));
+          return GestureDetector(
+              onHorizontalDragUpdate: (details) => _handleDrag(details.localPosition.dx),
+              child: Container(
+                  height: LineChartWidget.height,
+                  margin: widget.margin,
+                  child: CustomPaint(
+                      size: Size.infinite,
+                      painter: LineChartPainter(
+                          stockData: widget.stockData, animation: _animation, cursorPosition: _cursorPosition))));
         });
   }
 }
