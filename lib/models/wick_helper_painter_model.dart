@@ -1,4 +1,4 @@
-import 'package:animated_charts/models/candlestick_helper_painter_model.dart';
+import 'package:animated_charts/models/candlestick_math_helper_model.dart';
 import 'package:animated_charts/models/candlestick_paint_dimens_model.dart';
 import 'package:flutter/material.dart';
 
@@ -11,9 +11,11 @@ class WickHelperPainterModel {
 
   double get _candleCenterX => candlestick.centerX * animation.value;
 
-  double get _wickLeft => _candleCenterX - CandlesticksChartHelperPainterModel.wickWith / 2;
+  double get _halfWickWith => CandlestickMathHelperModel.wickWith / 2;
 
-  double get _wickRight => _candleCenterX + CandlesticksChartHelperPainterModel.wickWith / 2;
+  double get _wickLeft => _candleCenterX - _halfWickWith;
+
+  double get _wickRight => _candleCenterX + _halfWickWith;
 
   double get _wickTop => size.height - candlestick.wickHighY;
 

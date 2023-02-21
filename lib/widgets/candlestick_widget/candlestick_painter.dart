@@ -1,6 +1,7 @@
 import 'package:animated_charts/models/candle_helper_painter_model.dart';
 import 'package:animated_charts/models/candlestick_helper_painter_model.dart';
 import 'package:animated_charts/models/candlestick_horizontal_line_helper_painter_model.dart';
+import 'package:animated_charts/models/candlestick_math_helper_model.dart';
 import 'package:animated_charts/models/candlestick_paint_dimens_model.dart';
 import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
 import 'package:animated_charts/models/value_text_helper_painter_model.dart';
@@ -45,15 +46,15 @@ class StockCandlestickPainter extends CustomPainter {
   }
 
   void _drawLines(Canvas canvas, Size size) {
-    var lineModel = CandlestickHorizontalLineHelperPainterModel(size: size, animation: animation);
+    var model = CandlestickHorizontalLineHelperPainterModel(size: size, animation: animation, stockData: stockData!);
 
-    for (int index = 0; index < CandlesticksChartHelperPainterModel.numberLines; ++index) {
-      canvas.drawLine(lineModel.initPoint(index), lineModel.endPoint(index), lineModel.linePaint);
+    for (int index = 0; index < CandlestickMathHelperModel.numberLines; ++index) {
+      canvas.drawLine(model.initPoint(index), model.endPoint(index), model.linePaint);
     }
   }
 
   void _drawValuesText(Canvas canvas, Size size) {
-    for (int index = 0; index < CandlesticksChartHelperPainterModel.numberLines; ++index) {
+    for (int index = 0; index < CandlestickMathHelperModel.numberLines; ++index) {
       var valueTex = ValueTexHelperPainterModel(index: index, stockData: stockData, animation: animation, size: size);
       valueTex.textPainter.paint(canvas, valueTex.valuesTextOffset);
     }

@@ -1,7 +1,7 @@
 import 'package:animated_charts/helpers/chart_colors.dart';
 import 'package:animated_charts/helpers/dimens.dart';
 import 'package:animated_charts/helpers/mask_money.dart';
-import 'package:animated_charts/models/candlestick_helper_painter_model.dart';
+import 'package:animated_charts/models/candlestick_math_helper_model.dart';
 import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +9,9 @@ class ValueTexHelperPainterModel {
   final CandlestickStockPerformanceModel? stockData;
   final Animation<double> animation;
   final int index;
-  late TextPainter textPainter;
   final Size size;
+  late final CandlestickMathHelperModel _mathHelper;
+  late TextPainter textPainter;
 
   ValueTexHelperPainterModel({
     required this.stockData,
@@ -20,6 +21,7 @@ class ValueTexHelperPainterModel {
   }) {
     textPainter = _buildValuesTextPainter(_valueText);
     textPainter.layout(minWidth: 0, maxWidth: _maxWidthValuesText);
+    _mathHelper = CandlestickMathHelperModel(size: size, stockData: stockData!);
   }
 
   double get _high => stockData?.high ?? 0;
@@ -30,7 +32,7 @@ class ValueTexHelperPainterModel {
 
   double get _spread => _high - _low;
 
-  double get _distance => _spread / CandlesticksChartHelperPainterModel.numberLines;
+  double get _distance => _spread / CandlestickMathHelperModel.numberLines;
 
   String get _valueText => '${_high - index * _distance}'.moneyMask();
 
@@ -38,16 +40,6 @@ class ValueTexHelperPainterModel {
     Color textColor = ChartColors.monoBlack.withOpacity(animation.value);
 
     return TextStyle(color: textColor, fontSize: ChartDimens.micro);
-  }
-
-  double get _valuesTextLinesPadding => ChartDimens.nano;
-
-  double _getValuesTextAxisX(Size size) => _getLinesWidth(size) + _valuesTextLinesPadding;
-
-  double _getLinesWidth(Size size) {
-    return size.width -
-        CandlesticksChartHelperPainterModel.leftPadding +
-        CandlesticksChartHelperPainterModel.linesDifferencePadding;
   }
 
   TextSpan _buildValuesTextSpan(String text) => TextSpan(text: text, style: _valuesTextStyle);
@@ -62,8 +54,8 @@ class ValueTexHelperPainterModel {
   }
 
   Offset get valuesTextOffset {
-    double axisX = _getValuesTextAxisX(size);
-    double axisY = (index * CandlesticksChartHelperPainterModel.heightDistance) - textPainter.height / 2;
+    double axisX = _mathHelper.valuesTextAxisX;
+    double axisY = _mathHelper.getTextAxisY(index, textPainter.height);
     Offset offset = Offset(axisX, axisY);
 
     return offset;

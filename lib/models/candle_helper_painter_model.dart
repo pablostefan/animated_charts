@@ -1,4 +1,4 @@
-import 'package:animated_charts/models/candlestick_helper_painter_model.dart';
+import 'package:animated_charts/models/candlestick_math_helper_model.dart';
 import 'package:animated_charts/models/candlestick_paint_dimens_model.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +14,11 @@ class CandleHelperPainterModel {
     return candlestick.centerX / animation.value;
   }
 
-  double get _candleLeft => _candleCenterX - CandlesticksChartHelperPainterModel.candleWith / 2;
+  double get _halfCandleWith => CandlestickMathHelperModel.candleWith / 2;
 
-  double get _candleRight => _candleCenterX + CandlesticksChartHelperPainterModel.candleWith / 2;
+  double get _candleLeft => _candleCenterX - _halfCandleWith;
+
+  double get _candleRight => _candleCenterX + _halfCandleWith;
 
   double get _candleTop => size.height - candlestick.candleHighY;
 
@@ -24,5 +26,5 @@ class CandleHelperPainterModel {
 
   Rect get _candlestickRect => Rect.fromLTRB(_candleLeft, _candleTop, _candleRight, _candleBottom);
 
-  RRect get candlestickRRect => RRect.fromRectAndRadius(_candlestickRect, CandlesticksChartHelperPainterModel.radius);
+  RRect get candlestickRRect => RRect.fromRectAndRadius(_candlestickRect, CandlestickMathHelperModel.radius);
 }
