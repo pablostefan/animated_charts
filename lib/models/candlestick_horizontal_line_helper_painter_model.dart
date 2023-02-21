@@ -3,11 +3,11 @@ import 'package:animated_charts/helpers/dimens.dart';
 import 'package:animated_charts/models/candlestick_helper_painter_model.dart';
 import 'package:flutter/material.dart';
 
-class HorizontalLineHelperPainterModel {
+class CandlestickHorizontalLineHelperPainterModel {
   final Size size;
   final Animation<double> animation;
 
-  HorizontalLineHelperPainterModel({required this.size, required this.animation});
+  CandlestickHorizontalLineHelperPainterModel({required this.size, required this.animation});
 
   double get _linesDifferencePadding => ChartDimens.xxxmicro;
 

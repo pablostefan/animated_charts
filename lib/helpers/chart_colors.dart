@@ -9,7 +9,7 @@ abstract class ChartColors {
   static const Color lightMonochromatic = Color.fromRGBO(245, 245, 245, 1);
   static const Color lightGreen = Color.fromRGBO(231, 255, 236, 1);
   static const Color extraLightGreen = Color.fromRGBO(190, 244, 214, 1);
-  static const Color darkSuccess = Color.fromRGBO(0, 44, 41, 1);
+  static const Color darkGreen = Color.fromRGBO(0, 44, 41, 1);
   static const Color mediumLightGreen = Color.fromRGBO(28, 201, 125, 1);
   static const Color lightMonoGray = Color.fromRGBO(141, 149, 157, 1);
   static const Color darkMonoGray = Color.fromRGBO(81, 81, 81, 1);

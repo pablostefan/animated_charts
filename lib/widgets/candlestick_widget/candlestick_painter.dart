@@ -1,8 +1,8 @@
 import 'package:animated_charts/models/candle_helper_painter_model.dart';
 import 'package:animated_charts/models/candlestick_helper_painter_model.dart';
+import 'package:animated_charts/models/candlestick_horizontal_line_helper_painter_model.dart';
 import 'package:animated_charts/models/candlestick_paint_dimens_model.dart';
 import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
-import 'package:animated_charts/models/horizontal_line_helper_painter_model.dart';
 import 'package:animated_charts/models/value_text_helper_painter_model.dart';
 import 'package:animated_charts/models/wick_helper_painter_model.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +45,7 @@ class StockCandlestickPainter extends CustomPainter {
   }
 
   void _drawLines(Canvas canvas, Size size) {
-    var lineModel = HorizontalLineHelperPainterModel(size: size, animation: animation);
+    var lineModel = CandlestickHorizontalLineHelperPainterModel(size: size, animation: animation);
 
     for (int index = 0; index < CandlesticksChartHelperPainterModel.numberLines; ++index) {
       canvas.drawLine(lineModel.initPoint(index), lineModel.endPoint(index), lineModel.linePaint);

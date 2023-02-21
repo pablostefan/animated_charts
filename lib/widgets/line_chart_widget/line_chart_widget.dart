@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class LineChartWidget extends StatefulWidget {
   final LineChartStockPerformanceModel stockData;
   final EdgeInsetsGeometry margin;
+  static const double height = ChartDimens.slgiant;
 
   const LineChartWidget({
     Key? key,
@@ -23,8 +24,8 @@ class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProv
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 3000));
-    _animation = CurvedAnimation(parent: _animationController, curve: Curves.linear);
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1900));
+    _animation = CurvedAnimation(parent: _animationController, curve: const Cubic(.5, .5, .5, 1));
     WidgetsBinding.instance.addPostFrameCallback((_) => _animationController.forward(from: 0));
     super.initState();
   }
@@ -35,8 +36,7 @@ class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProv
         animation: _animationController,
         builder: (_, __) {
           return Container(
-              height: ChartDimens.giant,
-              color: Colors.yellow,
+              height: LineChartWidget.height,
               margin: widget.margin,
               child: CustomPaint(
                   size: Size.infinite, painter: LineChartPainter(stockData: widget.stockData, animation: _animation)));
