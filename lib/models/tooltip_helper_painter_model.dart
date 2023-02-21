@@ -27,7 +27,7 @@ class TooltipHelperPainterModel {
   double get _maxWidthValuesText => ChartDimens.xxxlg;
 
   TextStyle get _valuesTextStyle {
-    Color textColor = ChartColors.monoWhite.withOpacity(animation.value);
+    Color textColor = ChartColors.monoBlack.withOpacity(animation.value);
 
     return TextStyle(color: textColor, fontSize: ChartDimens.micro);
   }
@@ -35,12 +35,12 @@ class TooltipHelperPainterModel {
   String get _valueText => _positionHelper.selectedData.value.moneyMask();
 
   Paint get rectPaint => Paint()
-    ..color = Colors.black26.withOpacity(animation.value * 0.5)
+    ..color = ChartColors.mediumLightGreen.withOpacity(animation.value * 0.5)
     ..style = PaintingStyle.fill;
 
-  double get _tooltipWidth => ChartDimens.sm;
+  double get _tooltipWidth => (textPainter.width + ChartDimens.micro) / 2;
 
-  double get _tooltipHeight => ChartDimens.sm;
+  double get _tooltipHeight => textPainter.height + ChartDimens.micro;
 
   double get _tooltipBottom => _positionHelper.axisY - ChartDimens.micro;
 
@@ -87,8 +87,10 @@ class TooltipHelperPainterModel {
   }
 
   Offset get tooltipTextOffset {
-    double axisX = tooltipTopLeftOffset.dx + ChartDimens.micro;
-    double axisY = tooltipTopLeftOffset.dy + ChartDimens.micro;
+    double axisXDiff = (_tooltipWidth * 2 - textPainter.width) / 2;
+    double axisYDiff = (_tooltipHeight - textPainter.height) / 2;
+    double axisX = tooltipTopLeftOffset.dx + axisXDiff;
+    double axisY = tooltipTopLeftOffset.dy + axisYDiff;
 
     return Offset(axisX, axisY);
   }
