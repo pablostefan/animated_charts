@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 class LineChartWidget extends StatefulWidget {
   final LineChartStockPerformanceModel stockData;
   final EdgeInsetsGeometry margin;
-  static const double height = ChartDimens.slgiant;
 
   const LineChartWidget({
     Key? key,
@@ -46,7 +45,7 @@ class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProv
           return GestureDetector(
               onHorizontalDragUpdate: (details) => _handleDrag(details.localPosition.dx),
               child: Container(
-                  height: LineChartWidget.height,
+                  height: ChartDimens.slgiant,
                   margin: widget.margin,
                   child: CustomPaint(
                       size: Size.infinite,

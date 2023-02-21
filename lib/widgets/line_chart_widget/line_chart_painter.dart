@@ -3,6 +3,7 @@ import 'package:animated_charts/models/cursor_helper_painter_model.dart';
 import 'package:animated_charts/models/dotted_line_helper_painter_model.dart';
 import 'package:animated_charts/models/line_chart_helper_painter_model.dart';
 import 'package:animated_charts/models/line_chart_horizontal_line_helper_painter_model.dart';
+import 'package:animated_charts/models/line_chart_math_helper_model.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
 import 'package:animated_charts/models/tooltip_helper_painter_model.dart';
 import 'package:dash_painter/dash_painter.dart';
@@ -27,7 +28,7 @@ class LineChartPainter extends CustomPainter {
   void _drawHorizontalLines(Canvas canvas, Size size) {
     var lineModel = LineChartHorizontalLineHelperPainterModel(size: size, animation: animation);
 
-    for (int index = 0; index < LineChartHelperPainterModel.numberLines; ++index) {
+    for (int index = 0; index < LineChartMathHelperModel.numberLines; ++index) {
       canvas.drawLine(lineModel.initPoint(index), lineModel.endPoint(index), lineModel.linePaint);
     }
   }

@@ -1,24 +1,19 @@
 import 'dart:ui';
 
 import 'package:animated_charts/models/line_chart_data_model.dart';
+import 'package:animated_charts/models/line_chart_math_helper_model.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
-import 'package:animated_charts/widgets/line_chart_widget/line_chart_widget.dart';
 import 'package:flutter/material.dart';
 
 class LineChartHelperPainterModel {
   final LineChartStockPerformanceModel stockData;
   final Size size;
   final Animation<double> animation;
+  late final LineChartMathHelperModel _mathHelper;
 
-  LineChartHelperPainterModel({required this.stockData, required this.size, required this.animation});
-
-  static const int numberLines = 8;
-
-  static double get heightDistance => LineChartWidget.height / (numberLines - 1);
-
-  double get _heightPerUnit => size.height / (stockData.maxValue - stockData.minValue);
-
-  double get _widthPerUnit => size.width / (stockData.data.length - 1);
+  LineChartHelperPainterModel({required this.stockData, required this.size, required this.animation}) {
+    _mathHelper = LineChartMathHelperModel(stockData: stockData, size: size);
+  }
 
   List<Color> get _gradientColors => [Colors.blue.withOpacity(0.7), Colors.blue.withOpacity(0.2)];
 
@@ -46,12 +41,12 @@ class LineChartHelperPainterModel {
     return path;
   }
 
-  double _getAxisX(int index) => index * _widthPerUnit;
+  double _getAxisX(int index) => index * _mathHelper.widthPerUnit;
 
   double _getAxisY(int index, double animationValue) {
     double lineChartDataValue = stockData.data[index].value;
 
-    return size.height - (lineChartDataValue - stockData.minValue) * _heightPerUnit * animationValue;
+    return size.height - (lineChartDataValue - _mathHelper.minValue) * _mathHelper.heightPerUnit * animationValue;
   }
 
   Offset _getOffsetFromValue(LineChartDataModel model, {double animationValue = 1}) {
