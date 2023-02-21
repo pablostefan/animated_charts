@@ -65,8 +65,6 @@ class TooltipHelperPainterModel {
   }
 
   RRect get tooltipRRect {
-    print(tooltipTopLeftOffset.dx);
-    print(tooltipBottomRightOffset.dx);
     return RRect.fromLTRBR(
       tooltipTopLeftOffset.dx,
       tooltipTopLeftOffset.dy,
