@@ -58,6 +58,7 @@ class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProv
         builder: (_, __) {
           return GestureDetector(
               onHorizontalDragCancel: () => _onHorizontalDragEnd(_),
+              onHorizontalDragDown: (details) => _handleDrag(details.localPosition.dx),
               onHorizontalDragStart: (details) => _handleDrag(details.localPosition.dx),
               onHorizontalDragUpdate: (details) => _handleDrag(details.localPosition.dx),
               onHorizontalDragEnd: _onHorizontalDragEnd,
