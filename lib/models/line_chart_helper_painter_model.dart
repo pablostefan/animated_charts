@@ -57,31 +57,28 @@ class LineChartHelperPainterModel {
     return Offset(axisX, axisY);
   }
 
-  double _remap(double value, double start1, double stop1, double start2, double stop2) {
-    return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1));
-  }
-
   Path get animatedLinePath {
     if (_linePath.computeMetrics().isEmpty) return Path();
 
     Path path = _linePath;
-    List<PathMetric> metrics = path.computeMetrics().toList();
-    PathMetric metric = metrics.first;
-    double drawLimit = _remap(animation.value, 0, 1, 0, metric.length);
-    Path partialPath = Path();
-    double currentContour = 0.0;
+    Path dashPath = Path();
 
-    while (currentContour < drawLimit) {
-      final contour = metric.getTangentForOffset(currentContour)!;
+    PathMetric pathMetric = path.computeMetrics().first;
 
-      currentContour == 0.0
-          ? partialPath.moveTo(contour.position.dx, contour.position.dy)
-          : partialPath.lineTo(contour.position.dx, contour.position.dy);
+    double pathLength = pathMetric.length;
+    double drawLength = pathLength * animation.value;
+    double distance = 0;
 
-      currentContour += 1;
+    while (distance < drawLength) {
+      Tangent tangent = pathMetric.getTangentForOffset(distance)!;
+      Offset start = tangent.position - tangent.vector;
+      Offset end = tangent.position;
+      dashPath.moveTo(start.dx, start.dy);
+      dashPath.lineTo(end.dx, end.dy);
+      distance += 1;
     }
 
-    return partialPath;
+    return dashPath;
   }
 
   Path get gradientPath {
