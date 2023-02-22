@@ -64,9 +64,7 @@ class LineChartHelperPainterModel {
     Path dashPath = Path();
 
     PathMetric pathMetric = path.computeMetrics().first;
-
-    double pathLength = pathMetric.length;
-    double drawLength = pathLength * animation.value;
+    double drawLength = pathMetric.length * animation.value;
     double distance = 0;
 
     while (distance < drawLength) {
