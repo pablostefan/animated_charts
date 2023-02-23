@@ -11,7 +11,7 @@ class TooltipHelperPainterModel {
   final LineChartStockPerformanceModel stockData;
   final Animation<double> animation;
   late final SelectedPositionMathHelperModel _positionHelper;
-  late TextPainter textPainter;
+  late TextPainter _textPainter;
 
   TooltipHelperPainterModel({
     required this.size,
@@ -20,8 +20,8 @@ class TooltipHelperPainterModel {
     required this.animation,
   }) {
     _positionHelper = SelectedPositionMathHelperModel(stockData: stockData, size: size, cursorPosition: cursorPosition);
-    textPainter = _buildValuesTextPainter(_valueText);
-    textPainter.layout(minWidth: 0, maxWidth: _maxWidthValuesText);
+    _textPainter = _buildValuesTextPainter(_valueText);
+    _textPainter.layout(minWidth: 0, maxWidth: _maxWidthValuesText);
   }
 
   double get _maxWidthValuesText => ChartDimens.xxxlg;
@@ -38,9 +38,11 @@ class TooltipHelperPainterModel {
     ..color = ChartColors.mediumLightGreen.withOpacity(animation.value * 0.5)
     ..style = PaintingStyle.fill;
 
-  double get _tooltipWidth => (textPainter.width + ChartDimens.micro) / 2;
+  TextPainter get textPainter => _textPainter;
 
-  double get _tooltipHeight => textPainter.height + ChartDimens.micro;
+  double get _tooltipWidth => (_textPainter.width + ChartDimens.micro) / 2;
+
+  double get _tooltipHeight => _textPainter.height + ChartDimens.micro;
 
   double get _tooltipBottom => _positionHelper.axisY - ChartDimens.micro;
 
@@ -58,7 +60,7 @@ class TooltipHelperPainterModel {
 
   double get _tooltipTopTranslate => _positionHelper.axisY + ChartDimens.micro;
 
-  Offset get tooltipTopLeftOffset {
+  Offset get _tooltipTopLeftOffset {
     if (_tooltipLeft < 0 && _tooltipTop < 0) return Offset(0, _tooltipTopTranslate);
     if (_tooltipRight > size.width && _tooltipTop < 0) return Offset(_tooltipLeftTranslate, _tooltipTopTranslate);
     if (_tooltipLeft < 0) return Offset(0, _tooltipTop);
@@ -67,7 +69,7 @@ class TooltipHelperPainterModel {
     return Offset(_tooltipLeft, _tooltipTop);
   }
 
-  Offset get tooltipBottomRightOffset {
+  Offset get _tooltipBottomRightOffset {
     if (_tooltipRight > size.width && _tooltipRight > size.width) return Offset(size.width, _tooltipBottomTranslate);
     if (_tooltipLeft < 0 && _tooltipTop < 0) return Offset(_tooltipRightTranslate, _tooltipBottomTranslate);
     if (_tooltipLeft < 0) return Offset(_tooltipRightTranslate, _tooltipBottom);
@@ -78,19 +80,19 @@ class TooltipHelperPainterModel {
 
   RRect get tooltipRRect {
     return RRect.fromLTRBR(
-      tooltipTopLeftOffset.dx,
-      tooltipTopLeftOffset.dy,
-      tooltipBottomRightOffset.dx,
-      tooltipBottomRightOffset.dy,
+      _tooltipTopLeftOffset.dx,
+      _tooltipTopLeftOffset.dy,
+      _tooltipBottomRightOffset.dx,
+      _tooltipBottomRightOffset.dy,
       const Radius.circular(ChartDimens.micro),
     );
   }
 
   Offset get tooltipTextOffset {
-    double axisXDiff = (_tooltipWidth * 2 - textPainter.width) / 2;
-    double axisYDiff = (_tooltipHeight - textPainter.height) / 2;
-    double axisX = tooltipTopLeftOffset.dx + axisXDiff;
-    double axisY = tooltipTopLeftOffset.dy + axisYDiff;
+    double axisXDiff = (_tooltipWidth * 2 - _textPainter.width) / 2;
+    double axisYDiff = (_tooltipHeight - _textPainter.height) / 2;
+    double axisX = _tooltipTopLeftOffset.dx + axisXDiff;
+    double axisY = _tooltipTopLeftOffset.dy + axisYDiff;
 
     return Offset(axisX, axisY);
   }

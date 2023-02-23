@@ -22,13 +22,12 @@ class LineChartPainter extends CustomPainter {
     required this.showTooltip,
   });
 
-  void _drawCurveLines(Canvas canvas, LineChartHelperPainterModel lineChartHelper) {
-    canvas.drawPath(lineChartHelper.animatedLinePath, lineChartHelper.linePaint);
+  void _drawChartCurveLines(Canvas canvas, LineChartHelperPainterModel lineChartHelper) {
+    canvas.drawPath(lineChartHelper.animatedChartLinePath, lineChartHelper.linePaint);
   }
 
   void _drawGradient(Canvas canvas, LineChartHelperPainterModel lineChartHelper) {
-    final Path gradientPath = lineChartHelper.gradientPath;
-    canvas.drawPath(gradientPath, lineChartHelper.gradientPaint);
+    canvas.drawPath(lineChartHelper.gradientPath, lineChartHelper.gradientPaint);
   }
 
   void _drawHorizontalLines(Canvas canvas, Size size) {
@@ -79,7 +78,7 @@ class LineChartPainter extends CustomPainter {
     if (stockData == null) return;
     var lineChartHelper = LineChartHelperPainterModel(stockData: stockData!, size: size, animation: animation);
 
-    _drawCurveLines(canvas, lineChartHelper);
+    _drawChartCurveLines(canvas, lineChartHelper);
     _drawHorizontalLines(canvas, size);
     _drawGradient(canvas, lineChartHelper);
     _drawDashedVerticalLines(canvas, size);
