@@ -1,3 +1,5 @@
+import 'package:animated_charts/models/bar_chart_model.dart';
+import 'package:animated_charts/models/bar_chart_stock_performance_model.dart';
 import 'package:animated_charts/models/candlestick_data_model.dart';
 import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
 import 'package:animated_charts/models/line_chart_data_model.dart';
@@ -49,5 +51,17 @@ class CandlestickChartViewModel {
     LineChartDataModel(date: '', value: 800),
     LineChartDataModel(date: '', value: 800),
     LineChartDataModel(date: '', value: 900),
+  ]);
+  BarChartStockPerformanceModel stockDataBarChart = BarChartStockPerformanceModel(data: [
+    BarChartModel(date: '', value: 900),
+    BarChartModel(date: '', value: -150),
+    BarChartModel(date: '', value: 300),
+    BarChartModel(date: '', value: 600),
+    BarChartModel(date: '', value: 0),
+    BarChartModel(date: '', value: -700),
+    BarChartModel(date: '', value: 300),
+    BarChartModel(date: '', value: -800),
+    BarChartModel(date: '', value: 800),
+    BarChartModel(date: '', value: 900),
   ]);
 }

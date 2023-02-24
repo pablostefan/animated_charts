@@ -1,25 +1,25 @@
 import 'package:animated_charts/helpers/chart_colors.dart';
 import 'package:animated_charts/helpers/dimens.dart';
 import 'package:animated_charts/helpers/mask_money.dart';
-import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
-import 'package:animated_charts/models/selected_position_math_helper_model.dart';
+import 'package:animated_charts/models/bar_char_selected_position_helper_model.dart';
+import 'package:animated_charts/models/bar_chart_stock_performance_model.dart';
 import 'package:flutter/material.dart';
 
-class TooltipHelperPainterModel {
+class BarChartTooltipHelperPainterModel {
   final Size size;
   final double? cursorPosition;
-  final LineChartStockPerformanceModel stockData;
+  final BarChartStockPerformanceModel stockData;
   final Animation<double> animation;
-  late final SelectedPositionMathHelperModel _positionHelper;
+  late final BarChartSelectedPositionHelperModel _position;
   late TextPainter _textPainter;
 
-  TooltipHelperPainterModel({
+  BarChartTooltipHelperPainterModel({
     required this.size,
     required this.cursorPosition,
     required this.stockData,
     required this.animation,
   }) {
-    _positionHelper = SelectedPositionMathHelperModel(stockData: stockData, size: size, cursorPosition: cursorPosition);
+    _position = BarChartSelectedPositionHelperModel(stockData: stockData, size: size, cursorPosition: cursorPosition);
     _textPainter = _buildValuesTextPainter(_valueText);
     _textPainter.layout(minWidth: 0, maxWidth: _maxWidthValuesText);
   }
@@ -32,7 +32,7 @@ class TooltipHelperPainterModel {
     return TextStyle(color: textColor, fontSize: ChartDimens.micro);
   }
 
-  String get _valueText => _positionHelper.selectedData.value.moneyMask();
+  String get _valueText => _position.selectedData.value.moneyMask();
 
   Paint get rectPaint => Paint()
     ..color = ChartColors.mediumLightGreen.withOpacity(animation.value * 0.5)
@@ -44,21 +44,21 @@ class TooltipHelperPainterModel {
 
   double get _tooltipHeight => _textPainter.height + ChartDimens.micro;
 
-  double get _tooltipBottom => _positionHelper.axisY - ChartDimens.micro;
+  double get _tooltipBottom => _position.axisY - ChartDimens.micro;
 
-  double get _tooltipBottomTranslate => _positionHelper.axisY + ChartDimens.micro + _tooltipHeight;
+  double get _tooltipBottomTranslate => _position.axisY + ChartDimens.micro + _tooltipHeight;
 
-  double get _tooltipLeft => _positionHelper.axisX - _tooltipWidth;
+  double get _tooltipLeft => _position.axisX - _tooltipWidth;
 
   double get _tooltipLeftTranslate => size.width - _tooltipWidth * 2;
 
-  double get _tooltipRight => _positionHelper.axisX + _tooltipWidth;
+  double get _tooltipRight => _position.axisX + _tooltipWidth;
 
   double get _tooltipRightTranslate => _tooltipWidth * 2;
 
   double get _tooltipTop => _tooltipBottom - _tooltipHeight;
 
-  double get _tooltipTopTranslate => _positionHelper.axisY + ChartDimens.micro;
+  double get _tooltipTopTranslate => _position.axisY + ChartDimens.micro;
 
   Offset get _tooltipTopLeftOffset {
     if (_tooltipLeft < 0 && _tooltipTop < 0) return Offset(0, _tooltipTopTranslate);

@@ -56,15 +56,15 @@ class _LineChartWidgetState extends State<LineChartWidget> with SingleTickerProv
     return AnimatedBuilder(
         animation: _animationController,
         builder: (_, __) {
-          return GestureDetector(
-              onHorizontalDragCancel: () => _onHorizontalDragEnd(_),
-              onHorizontalDragDown: (details) => _handleDrag(details.localPosition.dx),
-              onHorizontalDragStart: (details) => _handleDrag(details.localPosition.dx),
-              onHorizontalDragUpdate: (details) => _handleDrag(details.localPosition.dx),
-              onHorizontalDragEnd: _onHorizontalDragEnd,
-              child: Container(
-                  height: ChartDimens.slgiant,
-                  margin: widget.margin,
+          return Container(
+              height: ChartDimens.slgiant,
+              margin: widget.margin,
+              child: GestureDetector(
+                  onHorizontalDragCancel: () => _onHorizontalDragEnd(_),
+                  onHorizontalDragDown: (details) => _handleDrag(details.localPosition.dx),
+                  onHorizontalDragStart: (details) => _handleDrag(details.localPosition.dx),
+                  onHorizontalDragUpdate: (details) => _handleDrag(details.localPosition.dx),
+                  onHorizontalDragEnd: _onHorizontalDragEnd,
                   child: CustomPaint(
                       size: Size.infinite,
                       painter: LineChartPainter(

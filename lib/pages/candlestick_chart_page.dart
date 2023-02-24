@@ -1,4 +1,5 @@
 import 'package:animated_charts/stores/candlestick_chart_store.dart';
+import 'package:animated_charts/widgets/bar_chart_widget/bar_chart_widget.dart';
 import 'package:animated_charts/widgets/candlestick_widget/candlestick_widget.dart';
 import 'package:animated_charts/widgets/line_chart_widget/line_chart_widget.dart';
 import 'package:animated_charts/widgets/stock_volume_widget/stock_volume_widget.dart';
@@ -24,6 +25,7 @@ class _CandlestickChartPageState extends State<CandlestickChartPage> {
               CandlestickWidget(stockData: _store.state.stockDataCandlestick),
               StockVolumeWidget(stockData: _store.state.stockDataCandlestick),
               LineChartWidget(stockData: _store.state.stockDataLineChart),
+              BarChartWidget(stockData: _store.state.stockDataBarChart)
             ])));
   }
 }

@@ -2,13 +2,20 @@ import 'package:animated_charts/helpers/dimens.dart';
 import 'package:animated_charts/models/line_chart_math_helper_model.dart';
 import 'package:flutter/material.dart';
 
-class LineChartHorizontalLineHelperPainterModel {
+class HorizontalLineHelperPainterModel {
   final Size size;
   final Animation<double> animation;
+  final int numberLines;
+  final Color color;
 
-  LineChartHorizontalLineHelperPainterModel({required this.size, required this.animation});
+  HorizontalLineHelperPainterModel({
+    required this.size,
+    required this.animation,
+    this.numberLines = LineChartMathHelperModel.numberLines,
+    this.color = Colors.blue,
+  });
 
-  double get heightDistance => size.height / (LineChartMathHelperModel.numberLines - 1);
+  double get heightDistance => size.height / numberLines;
 
   double _getAxisY(int index) => index * heightDistance;
 
@@ -21,6 +28,6 @@ class LineChartHorizontalLineHelperPainterModel {
   Offset endPoint(int index) => Offset(size.width, _getAxisY(index));
 
   Paint get linePaint => Paint()
-    ..color = Colors.blue.withOpacity(animation.value * 0.4)
+    ..color = color.withOpacity(animation.value * 0.4)
     ..strokeWidth = ChartDimens.xatto;
 }

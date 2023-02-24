@@ -1,6 +1,6 @@
 import 'package:animated_charts/helpers/dimens.dart';
+import 'package:animated_charts/models/line_chart_selected_position_helper_model.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
-import 'package:animated_charts/models/selected_position_math_helper_model.dart';
 import 'package:flutter/material.dart';
 
 class DottedLineHelperPainterModel {
@@ -8,7 +8,7 @@ class DottedLineHelperPainterModel {
   final double? cursorPosition;
   final LineChartStockPerformanceModel stockData;
   final Animation<double> animation;
-  late final SelectedPositionMathHelperModel _positionHelper;
+  late final LineChartSelectedPositionHelperModel _positionHelper;
 
   DottedLineHelperPainterModel({
     required this.size,
@@ -16,7 +16,8 @@ class DottedLineHelperPainterModel {
     required this.stockData,
     required this.animation,
   }) {
-    _positionHelper = SelectedPositionMathHelperModel(stockData: stockData, size: size, cursorPosition: cursorPosition);
+    _positionHelper =
+        LineChartSelectedPositionHelperModel(stockData: stockData, size: size, cursorPosition: cursorPosition);
   }
 
   Paint get linePaint => Paint()

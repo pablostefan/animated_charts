@@ -1,11 +1,11 @@
 import 'package:animated_charts/helpers/dimens.dart';
 import 'package:animated_charts/models/cursor_helper_painter_model.dart';
 import 'package:animated_charts/models/dotted_line_helper_painter_model.dart';
+import 'package:animated_charts/models/horizontal_line_helper_painter_model.dart';
 import 'package:animated_charts/models/line_chart_helper_painter_model.dart';
-import 'package:animated_charts/models/line_chart_horizontal_line_helper_painter_model.dart';
 import 'package:animated_charts/models/line_chart_math_helper_model.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
-import 'package:animated_charts/models/tooltip_helper_painter_model.dart';
+import 'package:animated_charts/models/line_chart_tooltip_helper_painter_model.dart';
 import 'package:dash_painter/dash_painter.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +31,7 @@ class LineChartPainter extends CustomPainter {
   }
 
   void _drawHorizontalLines(Canvas canvas, Size size) {
-    var lineModel = LineChartHorizontalLineHelperPainterModel(size: size, animation: animation);
+    var lineModel = HorizontalLineHelperPainterModel(size: size, animation: animation);
 
     for (int index = 0; index < LineChartMathHelperModel.numberLines; ++index) {
       canvas.drawLine(lineModel.initPoint(index), lineModel.endPoint(index), lineModel.linePaint);
@@ -61,7 +61,7 @@ class LineChartPainter extends CustomPainter {
 
   void _drawTooltip(Canvas canvas, Size size) {
     if (showTooltip) {
-      var tooltip = TooltipHelperPainterModel(
+      var tooltip = LineChartTooltipHelperPainterModel(
         size: size,
         cursorPosition: cursorPosition,
         stockData: stockData!,
@@ -87,5 +87,5 @@ class LineChartPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_) => true;
+  bool shouldRepaint(oldDelegate) => true;
 }

@@ -1,20 +1,21 @@
 import 'package:animated_charts/helpers/dimens.dart';
+import 'package:animated_charts/models/line_chart_selected_position_helper_model.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
-import 'package:animated_charts/models/selected_position_math_helper_model.dart';
 import 'package:flutter/material.dart';
 
 class CursorHelperPainterModel {
   final Size size;
   final double? cursorPosition;
   final LineChartStockPerformanceModel stockData;
-  late final SelectedPositionMathHelperModel _positionHelper;
+  late final LineChartSelectedPositionHelperModel _positionHelper;
 
   CursorHelperPainterModel({
     required this.size,
     required this.cursorPosition,
     required this.stockData,
   }) {
-    _positionHelper = SelectedPositionMathHelperModel(stockData: stockData, size: size, cursorPosition: cursorPosition);
+    _positionHelper =
+        LineChartSelectedPositionHelperModel(stockData: stockData, size: size, cursorPosition: cursorPosition);
   }
 
   Paint get bigCirclePainter => Paint()

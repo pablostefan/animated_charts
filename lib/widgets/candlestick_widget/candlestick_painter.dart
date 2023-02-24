@@ -69,5 +69,5 @@ class StockCandlestickPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(oldDelegate) => true;
 }

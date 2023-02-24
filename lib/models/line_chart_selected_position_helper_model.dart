@@ -3,13 +3,13 @@ import 'package:animated_charts/models/line_chart_math_helper_model.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
 import 'package:flutter/material.dart';
 
-class SelectedPositionMathHelperModel {
+class LineChartSelectedPositionHelperModel {
   final LineChartStockPerformanceModel stockData;
   final Size size;
   final double? cursorPosition;
   late final LineChartMathHelperModel _mathHelper;
 
-  SelectedPositionMathHelperModel({
+  LineChartSelectedPositionHelperModel({
     required this.stockData,
     required this.size,
     required this.cursorPosition,
