@@ -15,9 +15,9 @@ class HorizontalLineHelperPainterModel {
     this.color = Colors.blue,
   });
 
-  double get heightDistance => size.height / numberLines;
+  double get _heightDistance => size.height / numberLines;
 
-  double _getAxisY(int index) => index * heightDistance;
+  double _getAxisY(int index) => index * _heightDistance;
 
   Offset initPoint(int index) {
     double axisY = _getAxisY(index);

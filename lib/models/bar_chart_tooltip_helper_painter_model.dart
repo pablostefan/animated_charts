@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class BarChartTooltipHelperPainterModel {
   final Size size;
-  final double? cursorPosition;
+  final Offset? cursorPosition;
   final BarChartStockPerformanceModel stockData;
   final Animation<double> animation;
   late final BarChartSelectedPositionHelperModel _position;
@@ -27,55 +27,83 @@ class BarChartTooltipHelperPainterModel {
   double get _maxWidthValuesText => ChartDimens.xxxlg;
 
   TextStyle get _valuesTextStyle {
-    Color textColor = ChartColors.monoBlack.withOpacity(animation.value);
+    Color textColor = ChartColors.monoBlack;
 
     return TextStyle(color: textColor, fontSize: ChartDimens.micro);
   }
 
   String get _valueText => _position.selectedData.value.moneyMask();
 
+  Color get _tooltipBackgroundColor {
+    return _position.positiveValue
+        ? ChartColors.mediumLightGreen.withOpacity(animation.value * 0.5)
+        : ChartColors.darkError.withOpacity(animation.value * 0.5);
+  }
+
   Paint get rectPaint => Paint()
-    ..color = ChartColors.mediumLightGreen.withOpacity(animation.value * 0.5)
+    ..color = _tooltipBackgroundColor
     ..style = PaintingStyle.fill;
 
   TextPainter get textPainter => _textPainter;
+
+  bool get showTooltip => _position.cursorInsideChart;
 
   double get _tooltipWidth => (_textPainter.width + ChartDimens.micro) / 2;
 
   double get _tooltipHeight => _textPainter.height + ChartDimens.micro;
 
-  double get _tooltipBottom => _position.axisY - ChartDimens.micro;
+  double get _positiveTooltipBottom => _positiveTooltipTop - _tooltipHeight;
 
-  double get _tooltipBottomTranslate => _position.axisY + ChartDimens.micro + _tooltipHeight;
-
-  double get _tooltipLeft => _position.axisX - _tooltipWidth;
+  double get _tooltipLeft => _position.centerX - _tooltipWidth;
 
   double get _tooltipLeftTranslate => size.width - _tooltipWidth * 2;
 
-  double get _tooltipRight => _position.axisX + _tooltipWidth;
+  double get _tooltipRight => _position.centerX + _tooltipWidth;
 
   double get _tooltipRightTranslate => _tooltipWidth * 2;
 
-  double get _tooltipTop => _tooltipBottom - _tooltipHeight;
+  double get _positiveTooltipTop => ChartDimens.xxs;
 
-  double get _tooltipTopTranslate => _position.axisY + ChartDimens.micro;
+  double get _negativeTooltipTop => size.height;
+
+  double get _negativeTooltipBottom => _negativeTooltipTop - _tooltipHeight;
+
+  Offset get _positiveTooltipPositiveTopLeftOffset {
+    if (_tooltipLeft < 0) return Offset(0, _positiveTooltipTop);
+    if (_tooltipRight > size.width) return Offset(_tooltipLeftTranslate, _positiveTooltipTop);
+
+    return Offset(_tooltipLeft, _positiveTooltipTop);
+  }
+
+  Offset get _positiveTooltipBottomRightOffset {
+    if (_tooltipLeft < 0) return Offset(_tooltipRightTranslate, _positiveTooltipBottom);
+    if (_tooltipRight > size.width) return Offset(size.width, _positiveTooltipBottom);
+
+    return Offset(_tooltipRight, _positiveTooltipBottom);
+  }
+
+  Offset get _negativeTooltipTopLeftOffset {
+    if (_tooltipLeft < 0) return Offset(0, _negativeTooltipTop);
+    if (_tooltipRight > size.width) return Offset(_tooltipLeftTranslate, _negativeTooltipTop);
+
+    return Offset(_tooltipLeft, _negativeTooltipTop);
+  }
+
+  Offset get _negativeTooltipPositiveBottomRightOffset {
+    if (_tooltipLeft < 0) return Offset(_tooltipRightTranslate, _negativeTooltipBottom);
+    if (_tooltipRight > size.width) return Offset(size.width, _negativeTooltipBottom);
+
+    return Offset(_tooltipRight, _negativeTooltipBottom);
+  }
 
   Offset get _tooltipTopLeftOffset {
-    if (_tooltipLeft < 0 && _tooltipTop < 0) return Offset(0, _tooltipTopTranslate);
-    if (_tooltipRight > size.width && _tooltipTop < 0) return Offset(_tooltipLeftTranslate, _tooltipTopTranslate);
-    if (_tooltipLeft < 0) return Offset(0, _tooltipTop);
-    if (_tooltipRight > size.width) return Offset(_tooltipLeftTranslate, _tooltipTop);
-    if (_tooltipTop < 0) return Offset(_tooltipLeft, _tooltipTopTranslate);
-    return Offset(_tooltipLeft, _tooltipTop);
+    if (_position.positiveValue) return _positiveTooltipPositiveTopLeftOffset;
+    return _negativeTooltipTopLeftOffset;
   }
 
   Offset get _tooltipBottomRightOffset {
-    if (_tooltipRight > size.width && _tooltipRight > size.width) return Offset(size.width, _tooltipBottomTranslate);
-    if (_tooltipLeft < 0 && _tooltipTop < 0) return Offset(_tooltipRightTranslate, _tooltipBottomTranslate);
-    if (_tooltipLeft < 0) return Offset(_tooltipRightTranslate, _tooltipBottom);
-    if (_tooltipRight > size.width) return Offset(size.width, _tooltipBottom);
-    if (_tooltipTop < 0) return Offset(_tooltipRight, _tooltipBottomTranslate);
-    return Offset(_tooltipRight, _tooltipBottom);
+    if (_position.positiveValue) return _positiveTooltipBottomRightOffset;
+    return _negativeTooltipPositiveBottomRightOffset;
   }
 
   RRect get tooltipRRect {
@@ -92,7 +120,7 @@ class BarChartTooltipHelperPainterModel {
     double axisXDiff = (_tooltipWidth * 2 - _textPainter.width) / 2;
     double axisYDiff = (_tooltipHeight - _textPainter.height) / 2;
     double axisX = _tooltipTopLeftOffset.dx + axisXDiff;
-    double axisY = _tooltipTopLeftOffset.dy + axisYDiff;
+    double axisY = _tooltipBottomRightOffset.dy + axisYDiff;
 
     return Offset(axisX, axisY);
   }

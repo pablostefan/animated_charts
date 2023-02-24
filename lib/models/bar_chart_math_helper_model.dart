@@ -10,7 +10,7 @@ class BarChartMathHelperModel {
 
   static int get numberLines => 8;
 
-  double get additionalHeight => (stockData.maxValue - stockData.minValue) / ChartDimens.femto;
+  double get additionalHeight => (stockData.maxValue - stockData.minValue) * 2;
 
   double get maxValue => stockData.maxValue + additionalHeight;
 

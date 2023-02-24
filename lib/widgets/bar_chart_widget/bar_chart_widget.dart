@@ -21,7 +21,7 @@ class _BarChartWidgetState extends State<BarChartWidget> with SingleTickerProvid
   late Animation<double> _animation;
   late AnimationController _animationController;
   bool _showTooltip = false;
-  double? _cursorPosition;
+  Offset? _cursorPosition;
 
   @override
   void initState() {
@@ -31,12 +31,14 @@ class _BarChartWidgetState extends State<BarChartWidget> with SingleTickerProvid
     super.initState();
   }
 
-  void _onTapDown(double position) {
+  void _onTapDown(Offset position) {
     setState(() {
       _cursorPosition = position;
       _showTooltip = true;
     });
   }
+
+  void _removeTooltip() => setState(() => _showTooltip = false);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,9 @@ class _BarChartWidgetState extends State<BarChartWidget> with SingleTickerProvid
               height: ChartDimens.giant,
               margin: widget.margin,
               child: GestureDetector(
-                  onTapDown: (details) => _onTapDown(details.localPosition.dx),
+                  onLongPressStart: (details) => _onTapDown(details.localPosition),
+                  onLongPressUp: _removeTooltip,
+                  onLongPressCancel: _removeTooltip,
                   child: CustomPaint(
                       size: Size.infinite,
                       painter: BarChartPainter(

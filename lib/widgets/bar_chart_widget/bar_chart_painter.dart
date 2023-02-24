@@ -9,7 +9,7 @@ class BarChartPainter extends CustomPainter {
   final BarChartStockPerformanceModel? stockData;
   final Animation<double> animation;
   final bool showTooltip;
-  final double? cursorPosition;
+  final Offset? cursorPosition;
 
   BarChartPainter({required this.stockData, required this.animation, required this.showTooltip, this.cursorPosition});
 
@@ -34,14 +34,13 @@ class BarChartPainter extends CustomPainter {
   }
 
   void _drawTooltip(Canvas canvas, Size size) {
-    if (showTooltip) {
-      var tooltip = BarChartTooltipHelperPainterModel(
-        size: size,
-        cursorPosition: cursorPosition,
-        stockData: stockData!,
-        animation: animation,
-      );
-
+    var tooltip = BarChartTooltipHelperPainterModel(
+      size: size,
+      cursorPosition: cursorPosition,
+      stockData: stockData!,
+      animation: animation,
+    );
+    if (showTooltip && tooltip.showTooltip) {
       canvas.drawRRect(tooltip.tooltipRRect, tooltip.rectPaint);
       tooltip.textPainter.paint(canvas, tooltip.tooltipTextOffset);
     }

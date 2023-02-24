@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class BarChartSelectedPositionHelperModel {
   final BarChartStockPerformanceModel stockData;
   final Size size;
-  final double? cursorPosition;
+  final Offset? cursorPosition;
   late final BarChartMathHelperModel _mathHelper;
 
   BarChartSelectedPositionHelperModel({
@@ -17,21 +17,35 @@ class BarChartSelectedPositionHelperModel {
     _mathHelper = BarChartMathHelperModel(stockData: stockData, size: size);
   }
 
+  bool get positiveValue => _selectedDataValue >= 0;
+
+  double get _selectedDataValue => stockData.data[_selectedIndex].value;
+
   int get _selectedIndex {
     if (cursorPosition == null) return stockData.data.length - 1;
-    return cursorPosition! ~/ _mathHelper.barWidth;
+    return cursorPosition!.dx ~/ _mathHelper.barWidth;
   }
 
-  double get axisX => _mathHelper.barRealWidth * _selectedIndex;
+  double get centerX => _mathHelper.barWidth * _selectedIndex + _mathHelper.barRealWidth / 2;
 
-  double get axisY {
-    double barChartValue = stockData.data[_selectedIndex].value;
-    double barHeight = (barChartValue.abs() - _mathHelper.minValue) * _mathHelper.heightPerUnit;
+  bool get cursorInsideChart {
+    if (cursorPosition == null) {
+      return false;
+    } else if (positiveValue) {
+      return cursorPosition!.dy <= _mathHelper.barBottom && cursorPosition!.dy >= _barTop;
+    } else {
+      return cursorPosition!.dy >= _mathHelper.barBottom && cursorPosition!.dy <= _barTop;
+    }
+  }
 
-    if (barChartValue > 0) return (_mathHelper.barBottom - barHeight) / 2;
-    if (barChartValue < 0) return (_mathHelper.barBottom + barHeight) / 2;
+  double get _barHeight => (_selectedDataValue.abs() - _mathHelper.minValue) * _mathHelper.heightPerUnit;
 
-    return _mathHelper.barBottom;
+  double get _barTop {
+    if (positiveValue) {
+      return _mathHelper.barBottom - _barHeight;
+    } else {
+      return _mathHelper.barBottom + _barHeight;
+    }
   }
 
   BarChartModel get selectedData => stockData.data[_selectedIndex];
