@@ -5,7 +5,7 @@ import 'package:animated_charts/models/candlestick_stock_performance_model.dart'
 import 'package:animated_charts/models/line_chart_data_model.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
 
-class CandlestickChartViewModel {
+class ChartsViewModel {
   CandlestickStockPerformanceModel stockDataCandlestick = CandlestickStockPerformanceModel(data: [
     CandlestickDataModel(low: 1372, high: 1382.6, close: 1374.12, open: 1381.46, volume: 94212),
     CandlestickDataModel(low: 1372, high: 1400, close: 1374.12, open: 1381.46, volume: 94212),
