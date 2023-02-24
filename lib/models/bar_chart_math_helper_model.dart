@@ -8,15 +8,13 @@ class BarChartMathHelperModel {
 
   BarChartMathHelperModel({required this.stockData, required this.size});
 
-  static int get numberLines => 8;
+  static int get numberLines => 7;
 
-  double get additionalHeight => (stockData.maxValue - stockData.minValue) * 2;
+  double get additionalHeight => stockData.maxValue / ChartDimens.xxatt;
 
   double get maxValue => stockData.maxValue + additionalHeight;
 
-  double get minValue => stockData.minValue - additionalHeight;
-
-  double get heightPerUnit => barBottom / (maxValue - minValue);
+  double get heightPerUnit => barBottom / maxValue;
 
   double get barPadding => ChartDimens.xxfemto;
 

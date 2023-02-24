@@ -28,7 +28,7 @@ class BarChartPainter extends CustomPainter {
       color: Colors.grey,
     );
 
-    for (int index = 0; index <= BarChartMathHelperModel.numberLines; index++) {
+    for (int index = 0; index < BarChartMathHelperModel.numberLines; index++) {
       canvas.drawLine(helper.initPoint(index), helper.endPoint(index), helper.linePaint);
     }
   }

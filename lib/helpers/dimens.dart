@@ -45,7 +45,7 @@ abstract class ChartDimens {
   static const double atto = 2;
 
   /// xxatt = 2.25
-  static const double xxatt = 2.25;
+  static const double xxatt = 2.5;
 
   /// femto = 3
   static const double xfemto = 3;

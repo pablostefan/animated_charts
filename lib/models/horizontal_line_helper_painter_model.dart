@@ -15,7 +15,7 @@ class HorizontalLineHelperPainterModel {
     this.color = Colors.blue,
   });
 
-  double get _heightDistance => size.height / numberLines;
+  double get _heightDistance => size.height / (numberLines - 1);
 
   double _getAxisY(int index) => index * _heightDistance;
 

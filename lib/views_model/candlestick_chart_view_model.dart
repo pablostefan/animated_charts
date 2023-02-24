@@ -53,14 +53,14 @@ class CandlestickChartViewModel {
     LineChartDataModel(date: '', value: 900),
   ]);
   BarChartStockPerformanceModel stockDataBarChart = BarChartStockPerformanceModel(data: [
-    BarChartModel(date: '', value: 900),
-    BarChartModel(date: '', value: -150),
+    BarChartModel(date: '', value: 1000),
+    BarChartModel(date: '', value: 500),
     BarChartModel(date: '', value: 300),
     BarChartModel(date: '', value: 600),
     BarChartModel(date: '', value: 0),
     BarChartModel(date: '', value: -700),
     BarChartModel(date: '', value: 300),
-    BarChartModel(date: '', value: -800),
+    BarChartModel(date: '', value: -1000),
     BarChartModel(date: '', value: 800),
     BarChartModel(date: '', value: 900),
   ]);

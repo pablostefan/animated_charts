@@ -38,7 +38,7 @@ class BarChartSelectedPositionHelperModel {
     }
   }
 
-  double get _barHeight => (_selectedDataValue.abs() - _mathHelper.minValue) * _mathHelper.heightPerUnit;
+  double get _barHeight => _selectedDataValue.abs() * _mathHelper.heightPerUnit;
 
   double get _barTop {
     if (positiveValue) {

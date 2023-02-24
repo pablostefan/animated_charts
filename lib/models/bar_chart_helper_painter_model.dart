@@ -19,7 +19,7 @@ class BarChartHelperPainterModel {
 
   double _getBarTop(int index) {
     double barChartValue = stockData.data[index].value;
-    double barHeight = (barChartValue.abs() - _mathHelper.minValue) * _mathHelper.heightPerUnit * animation.value;
+    double barHeight = barChartValue.abs() * _mathHelper.heightPerUnit * animation.value;
 
     if (barChartValue > 0) return _mathHelper.barBottom - barHeight;
     if (barChartValue < 0) return _mathHelper.barBottom + barHeight;
