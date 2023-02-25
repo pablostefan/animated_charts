@@ -25,8 +25,15 @@ class PieChartStockPerformanceModel {
 
   void _setTotalPercentage() {
     _totalPercentage = data.fold(0, (previousValue, element) => previousValue + element.percentage);
-    if (_totalPercentage < 100) data.add(_unknownPieChartModel);
-    if (_totalPercentage > 100) correctPercentage = false;
+    if (_totalPercentage > 100) _setCorrectPercentage(false);
+    if (_totalPercentage < 100) _addUnknownData();
+  }
+
+  void _setCorrectPercentage(bool correctPercentage) => this.correctPercentage = correctPercentage;
+
+  void _addUnknownData() {
+    data.add(_unknownPieChartModel);
+    _totalPercentage = 100;
   }
 
   void _shortData() => data.sort((a, b) => b.percentage.compareTo(a.percentage));

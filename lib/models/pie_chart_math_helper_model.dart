@@ -11,9 +11,9 @@ class PieChartMathHelperModel {
 
   PieChartMathHelperModel({required this.stockData, required this.size});
 
-  double get _axisXCenter => size.width / 2;
+  double get axisXCenter => size.width / 2;
 
-  double get _axisYCenter => size.height / 2;
+  double get axisYCenter => size.height / 2;
 
   static double get _unselectedRadius => height / 2;
 
@@ -23,7 +23,7 @@ class PieChartMathHelperModel {
 
   static double _getRadius(PieChartModel pieChart) => pieChart.isSelected ? _selectedRadius : _unselectedRadius;
 
-  Offset get center => Offset(_axisXCenter, _axisYCenter);
+  Offset get center => Offset(axisXCenter, axisYCenter);
 
   static double get height => ChartDimens.slgiant;
 

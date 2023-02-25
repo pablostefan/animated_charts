@@ -68,9 +68,9 @@ class ChartsViewModel {
     BarChartModel(date: '', value: 900),
   ]);
   PieChartStockPerformanceModel stockDataPieChart = PieChartStockPerformanceModel(data: [
-    PieChartModel(name: '', percentage: 20, color: Colors.blueAccent),
-    PieChartModel(name: '', percentage: 30, color: Colors.redAccent),
-    PieChartModel(name: '', percentage: 25, color: Colors.yellowAccent),
-    PieChartModel(name: '', percentage: 25, color: Colors.greenAccent),
+    PieChartModel(name: 'ETH', percentage: 20, color: Colors.blueAccent),
+    PieChartModel(name: 'BTC', percentage: 30, color: Colors.redAccent),
+    PieChartModel(name: 'ASA', percentage: 25, color: Colors.yellowAccent),
+    PieChartModel(name: 'TSE', percentage: 20, color: Colors.greenAccent),
   ]);
 }

@@ -11,7 +11,7 @@ class ValueTexHelperPainterModel {
   final int index;
   final Size size;
   late final CandlestickMathHelperModel _mathHelper;
-  late TextPainter textPainter;
+  late TextPainter _textPainter;
 
   ValueTexHelperPainterModel({
     required this.stockData,
@@ -19,8 +19,8 @@ class ValueTexHelperPainterModel {
     required this.animation,
     required this.size,
   }) {
-    textPainter = _buildValuesTextPainter(_valueText);
-    textPainter.layout(minWidth: 0, maxWidth: _maxWidthValuesText);
+    _textPainter = _buildValuesTextPainter(_valueText);
+    _textPainter.layout(minWidth: 0, maxWidth: _maxWidthValuesText);
     _mathHelper = CandlestickMathHelperModel(size: size, stockData: stockData!);
   }
 
@@ -41,6 +41,8 @@ class ValueTexHelperPainterModel {
 
     return TextStyle(color: textColor, fontSize: ChartDimens.micro);
   }
+
+  TextPainter get textPainter => _textPainter;
 
   TextSpan _buildValuesTextSpan(String text) => TextSpan(text: text, style: _valuesTextStyle);
 
