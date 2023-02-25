@@ -69,8 +69,12 @@ class ChartsViewModel {
   ]);
   PieChartStockPerformanceModel stockDataPieChart = PieChartStockPerformanceModel(data: [
     PieChartModel(name: 'ETH', percentage: 20, color: Colors.blueAccent),
-    PieChartModel(name: 'BTC', percentage: 30, color: Colors.redAccent),
-    PieChartModel(name: 'ASA', percentage: 25, color: Colors.yellowAccent),
+    PieChartModel(name: 'BTC', percentage: 5, color: Colors.redAccent),
+    PieChartModel(name: 'ASA', percentage: 5, color: Colors.yellowAccent),
     PieChartModel(name: 'TSE', percentage: 20, color: Colors.greenAccent),
+    PieChartModel(name: 'TSE', percentage: 5, color: Colors.brown),
+    PieChartModel(name: 'TSE', percentage: 15, color: Colors.pinkAccent),
+    PieChartModel(name: 'TSE', percentage: 10, color: Colors.purpleAccent),
+    PieChartModel(name: 'TSE', percentage: 10, color: Colors.amberAccent),
   ]);
 }
