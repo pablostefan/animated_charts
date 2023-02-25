@@ -57,7 +57,7 @@ class LineChartHelperPainterModel {
     return Offset(axisX, axisY);
   }
 
-  Path get animatedChartLinePath {
+  Path get animatedLineChartPath {
     if (_linePath.computeMetrics().isEmpty) return Path();
 
     Path path = _linePath;

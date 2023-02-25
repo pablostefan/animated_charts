@@ -1,6 +1,6 @@
 import 'package:animated_charts/helpers/dimens.dart';
 import 'package:animated_charts/models/bar_chart_stock_performance_model.dart';
-import 'package:animated_charts/widgets/bar_chart_widget/bar_chart_painter.dart';
+import 'package:animated_charts/widgets/bar_chart/bar_chart_painter.dart';
 import 'package:flutter/material.dart';
 
 class BarChartWidget extends StatefulWidget {

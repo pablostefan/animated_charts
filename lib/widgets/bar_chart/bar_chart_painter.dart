@@ -49,6 +49,8 @@ class BarChartPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (stockData == null) return;
+    if (stockData!.data.isEmpty) return;
+
     _drawBarChart(canvas, size);
     _drawHorizontalLines(canvas, size);
     _drawTooltip(canvas, size);

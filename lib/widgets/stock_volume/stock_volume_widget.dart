@@ -1,20 +1,23 @@
 import 'package:animated_charts/helpers/dimens.dart';
 import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
-import 'package:animated_charts/widgets/candlestick_widget/candlestick_painter.dart';
+import 'package:animated_charts/widgets/stock_volume/stock_volume_painter.dart';
 import 'package:flutter/material.dart';
 
-class CandlestickWidget extends StatefulWidget {
+class StockVolumeWidget extends StatefulWidget {
   final CandlestickStockPerformanceModel? stockData;
+  final EdgeInsetsGeometry margin;
 
-  const CandlestickWidget({required this.stockData, Key? key}) : super(key: key);
-
-  static const double height = ChartDimens.slgiant;
+  const StockVolumeWidget({
+    Key? key,
+    required this.stockData,
+    this.margin = const EdgeInsets.only(right: ChartDimens.xxxs, left: ChartDimens.xxxs, top: ChartDimens.nano),
+  }) : super(key: key);
 
   @override
-  State<CandlestickWidget> createState() => _StockCandlestickState();
+  State<StockVolumeWidget> createState() => _StockVolumeWidgetState();
 }
 
-class _StockCandlestickState extends State<CandlestickWidget> with SingleTickerProviderStateMixin {
+class _StockVolumeWidgetState extends State<StockVolumeWidget> with SingleTickerProviderStateMixin {
   late Animation<double> _animation;
   late AnimationController _animationController;
 
@@ -27,23 +30,16 @@ class _StockCandlestickState extends State<CandlestickWidget> with SingleTickerP
   }
 
   @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         animation: _animationController,
         builder: (_, __) {
           return Container(
-              margin: const EdgeInsets.only(bottom: ChartDimens.femto, top: ChartDimens.xxxmacro),
-              padding: const EdgeInsets.symmetric(horizontal: ChartDimens.xxxs),
-              height: CandlestickWidget.height,
+              height: ChartDimens.smxss,
+              margin: widget.margin,
               child: CustomPaint(
                   size: Size.infinite,
-                  painter: StockCandlestickPainter(stockData: widget.stockData, animation: _animation)));
+                  painter: StockVolumePainter(stockData: widget.stockData, animation: _animation)));
         });
   }
 }

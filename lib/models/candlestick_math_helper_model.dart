@@ -1,6 +1,6 @@
 import 'package:animated_charts/helpers/dimens.dart';
 import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
-import 'package:animated_charts/widgets/candlestick_widget/candlestick_widget.dart';
+import 'package:animated_charts/widgets/candlestick/candlestick_widget.dart';
 import 'package:flutter/material.dart';
 
 class CandlestickMathHelperModel {

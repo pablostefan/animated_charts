@@ -4,6 +4,9 @@ import 'package:animated_charts/models/candlestick_data_model.dart';
 import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
 import 'package:animated_charts/models/line_chart_data_model.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
+import 'package:animated_charts/models/pie_chart_model.dart';
+import 'package:animated_charts/models/pie_chart_stock_performance_model.dart';
+import 'package:flutter/material.dart';
 
 class ChartsViewModel {
   CandlestickStockPerformanceModel stockDataCandlestick = CandlestickStockPerformanceModel(data: [
@@ -63,5 +66,11 @@ class ChartsViewModel {
     BarChartModel(date: '', value: -1000),
     BarChartModel(date: '', value: 800),
     BarChartModel(date: '', value: 900),
+  ]);
+  PieChartStockPerformanceModel stockDataPieChart = PieChartStockPerformanceModel(data: [
+    PieChartModel(name: '', percentage: 20, color: Colors.blueAccent),
+    PieChartModel(name: '', percentage: 30, color: Colors.redAccent),
+    PieChartModel(name: '', percentage: 25, color: Colors.yellowAccent),
+    PieChartModel(name: '', percentage: 25, color: Colors.greenAccent),
   ]);
 }

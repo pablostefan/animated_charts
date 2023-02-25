@@ -1,6 +1,6 @@
 import 'package:animated_charts/helpers/dimens.dart';
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
-import 'package:animated_charts/widgets/line_chart_widget/line_chart_painter.dart';
+import 'package:animated_charts/widgets/line_chart/line_chart_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

@@ -23,7 +23,7 @@ class LineChartPainter extends CustomPainter {
   });
 
   void _drawChartCurveLines(Canvas canvas, LineChartHelperPainterModel lineChartHelper) {
-    canvas.drawPath(lineChartHelper.animatedChartLinePath, lineChartHelper.linePaint);
+    canvas.drawPath(lineChartHelper.animatedLineChartPath, lineChartHelper.linePaint);
   }
 
   void _drawGradient(Canvas canvas, LineChartHelperPainterModel lineChartHelper) {
@@ -76,6 +76,8 @@ class LineChartPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (stockData == null) return;
+    if (stockData!.data.isEmpty) return;
+
     var lineChartHelper = LineChartHelperPainterModel(stockData: stockData!, size: size, animation: animation);
 
     _drawChartCurveLines(canvas, lineChartHelper);

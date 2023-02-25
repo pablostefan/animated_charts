@@ -12,6 +12,8 @@ class StockVolumePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (stockData == null) return;
+    if (stockData!.data.isEmpty) return;
+
     BarHelperPainterModel barHelper = BarHelperPainterModel(stockData: stockData, animation: animation, size: size);
     List<BarModel> bars = barHelper.generateBars;
 
