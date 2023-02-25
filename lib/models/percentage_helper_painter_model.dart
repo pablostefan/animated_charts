@@ -27,14 +27,14 @@ class PercentageHelperPainterModel {
 
   Offset get percentageTextOffset {
     double axisX = _mathHelper.axisXCenter - _percentageTextPainter.width / 2;
-    double axisY = _mathHelper.axisYCenter - _percentageTextPainter.height / 2 - 20;
+    double axisY = _mathHelper.axisYCenter - _percentageTextPainter.height;
 
     return Offset(axisX, axisY);
   }
 
   Offset get nameTextOffset {
     double axisX = _mathHelper.axisXCenter - _nameTextPainter.width / 2;
-    double axisY = _mathHelper.axisYCenter - _percentageTextPainter.height / 2 + 20;
+    double axisY = _mathHelper.axisYCenter;
 
     return Offset(axisX, axisY);
   }
