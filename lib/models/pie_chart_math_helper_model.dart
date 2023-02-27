@@ -52,8 +52,9 @@ class PieChartMathHelperModel {
     double pointXOffset = point.dx - arcCenter.dx;
     double pointYOffset = point.dy - arcCenter.dy;
 
-    double effectiveArcRadiusMax = arcRadius + pieChart.strokeWidth / 2;
-    double effectiveArcRadiusMin = arcRadius - pieChart.strokeWidth / 2;
+    double strokeWidth = pieChart.strokeWidth + ChartDimens.nano;
+    double effectiveArcRadiusMax = arcRadius + strokeWidth / 2 + ChartDimens.nano;
+    double effectiveArcRadiusMin = arcRadius - strokeWidth / 2 - ChartDimens.nano;
 
     double arcEndAngle = arcStartAngle + arcSweepAngle;
 
