@@ -27,14 +27,12 @@ class PieChartMathHelperModel {
 
   static double get height => ChartDimens.slgiant;
 
-  static double get horizontalMargin => ChartDimens.xxxs;
-
   static double get strokeWidth => ChartDimens.xxxs;
 
   static double get selectedStrokeWidth => ChartDimens.xxs;
 
   static Offset _arcCenter(BuildContext context) {
-    double arcCenterX = MediaQuery.of(context).size.width / 2 - horizontalMargin;
+    double arcCenterX = MediaQuery.of(context).size.width / 2;
     double arcCenterY = height / 2;
 
     return Offset(arcCenterX, arcCenterY);

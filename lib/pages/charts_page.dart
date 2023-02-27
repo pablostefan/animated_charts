@@ -8,9 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 
 class ChartsPage extends StatefulWidget {
-  final String title;
-
-  const ChartsPage({Key? key, this.title = ""}) : super(key: key);
+  const ChartsPage({Key? key}) : super(key: key);
 
   @override
   State<ChartsPage> createState() => _ChartsPageState();

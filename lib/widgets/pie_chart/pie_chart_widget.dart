@@ -26,10 +26,13 @@ class _PieChartWidgetState extends State<PieChartWidget> with SingleTickerProvid
     super.initState();
   }
 
+  bool _pieChartIsSelected(PieChartModel pieChart, Offset position) {
+    return pieChart.isSelected ? false : PieChartMathHelperModel.isPointInArc(position, pieChart, context);
+  }
+
   void _setSelectedPieChart(Offset position, BuildContext context) {
     for (PieChartModel pieChart in widget.stockData.data) {
-      pieChart.isSelected =
-          pieChart.isSelected ? false : PieChartMathHelperModel.isPointInArc(position, pieChart, context);
+      pieChart.isSelected = _pieChartIsSelected(pieChart, position);
     }
   }
 
@@ -44,8 +47,7 @@ class _PieChartWidgetState extends State<PieChartWidget> with SingleTickerProvid
         builder: (_, __) {
           return Container(
               height: PieChartMathHelperModel.height,
-              margin:
-                  EdgeInsets.symmetric(horizontal: PieChartMathHelperModel.horizontalMargin, vertical: ChartDimens.sm),
+              margin: const EdgeInsets.symmetric(vertical: ChartDimens.sm),
               child: GestureDetector(
                   onTapDown: (details) => _onTapDown(details, context),
                   child: CustomPaint(

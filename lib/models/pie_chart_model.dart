@@ -34,7 +34,7 @@ class PieChartModel {
 
   double get sweepAngle => isSelected ? _sweepAngleWithAdditionalAngle : _sweepAngle;
 
-  double get _additionalAngle => 2 * pi / 100;
+  double get _additionalAngle => pi / 70;
 
   double get _startAngleWithAdditionalAngle => _startAngle + _additionalAngle;
 
