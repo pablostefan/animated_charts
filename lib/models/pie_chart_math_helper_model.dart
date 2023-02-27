@@ -55,15 +55,15 @@ class PieChartMathHelperModel {
     double effectiveArcRadiusMax = arcRadius + pieChart.strokeWidth / 2;
     double effectiveArcRadiusMin = arcRadius - pieChart.strokeWidth / 2;
 
-    double distanceFromCenter = sqrt(pointXOffset * pointXOffset + pointYOffset * pointYOffset);
+    double arcEndAngle = arcStartAngle + arcSweepAngle;
 
-    if (!(distanceFromCenter < effectiveArcRadiusMax && distanceFromCenter > effectiveArcRadiusMin)) return false;
+    double distanceFromCenter = sqrt(pointXOffset * pointXOffset + pointYOffset * pointYOffset);
 
     double angleFromCenter = atan2(pointYOffset, pointXOffset);
 
-    if (angleFromCenter < 0) angleFromCenter += 2 * pi;
+    if (distanceFromCenter > effectiveArcRadiusMax || distanceFromCenter < effectiveArcRadiusMin) return false;
 
-    double arcEndAngle = arcStartAngle + arcSweepAngle;
+    if (angleFromCenter < 0) angleFromCenter += 2 * pi;
 
     if (arcStartAngle < 0) arcStartAngle += 2 * pi;
 
