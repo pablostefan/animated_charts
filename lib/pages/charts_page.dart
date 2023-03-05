@@ -4,6 +4,7 @@ import 'package:animated_charts/widgets/candlestick/candlestick_widget.dart';
 import 'package:animated_charts/widgets/line_chart/line_chart_widget.dart';
 import 'package:animated_charts/widgets/pie_chart/pie_chart_widget.dart';
 import 'package:animated_charts/widgets/stock_volume/stock_volume_widget.dart';
+import 'package:animated_charts/widgets/water_percentage/water_percentage_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 
@@ -23,6 +24,7 @@ class _ChartsPageState extends State<ChartsPage> {
         store: _store,
         builder: (context, triple) => Scaffold(
                 body: ListView(children: [
+              const WaterPercentageWidget(percentage: .5),
               PieChartWidget(stockData: _store.state.stockDataPieChart),
               CandlestickWidget(stockData: _store.state.stockDataCandlestick),
               StockVolumeWidget(stockData: _store.state.stockDataCandlestick),
