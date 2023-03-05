@@ -32,7 +32,6 @@ class WaterPercentagePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     var helper = WaterPercentagePainterHelper(
       size: size,
-      percentage: percentage,
       borderAnimation: borderAnimation,
       percentageAnimation: percentageAnimation,
       firstAnimationValue: firstAnimationValue,

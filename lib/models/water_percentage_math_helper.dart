@@ -8,7 +8,6 @@ class WaterPercentageMathHelper {
   final double _secondAnimationValue;
   final double _percentageAnimation;
   final double _borderAnimation;
-  final double _percentage;
   final Size _size;
 
   WaterPercentageMathHelper({
@@ -17,9 +16,7 @@ class WaterPercentageMathHelper {
     required double firstAnimationValue,
     required double secondAnimationValue,
     required double borderAnimation,
-    required double percentage,
   })  : _size = size,
-        _percentage = percentage,
         _percentageAnimation = percentageAnimation,
         _borderAnimation = borderAnimation,
         _firstAnimationValue = firstAnimationValue,
@@ -39,7 +36,7 @@ class WaterPercentageMathHelper {
 
   double get _parabolicCoefficient => centerX / 0.25;
 
-  double get percentageValue => 100 * _percentage;
+  double get percentageValue => 100 * _percentageAnimation;
 
   double get borderWidth => ChartDimens.femto;
 

@@ -8,7 +8,6 @@ class WaterPercentagePainterHelper {
   final double percentageAnimation;
   final double borderAnimation;
   final Size size;
-  final double percentage;
   late final WaterPercentageMathHelper _mathHelper;
   late TextPainter _percentageTextPainter;
 
@@ -18,11 +17,9 @@ class WaterPercentagePainterHelper {
     required this.firstAnimationValue,
     required this.secondAnimationValue,
     required this.borderAnimation,
-    required this.percentage,
   }) {
     _mathHelper = WaterPercentageMathHelper(
         size: size,
-        percentage: percentage,
         percentageAnimation: percentageAnimation,
         firstAnimationValue: firstAnimationValue,
         secondAnimationValue: secondAnimationValue,
@@ -101,11 +98,7 @@ class WaterPercentagePainterHelper {
     return Offset(axisX, axisY);
   }
 
-  String get _percentageText => '${_mathHelper.percentageValue}%';
+  String get _percentageText => '${_mathHelper.percentageValue.toInt()}%';
 
-  TextStyle get _valuesTextStyle {
-    Color textColor = Colors.blue.withOpacity(borderAnimation);
-
-    return TextStyle(color: textColor, fontSize: ChartDimens.xxxxmacro);
-  }
+  TextStyle get _valuesTextStyle => const TextStyle(color: Colors.blue, fontSize: ChartDimens.xxxxmacro);
 }
