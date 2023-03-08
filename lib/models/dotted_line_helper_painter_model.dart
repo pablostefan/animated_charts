@@ -3,14 +3,14 @@ import 'package:animated_charts/models/line_chart_selected_position_helper_model
 import 'package:animated_charts/models/line_chart_stock_performance_model.dart';
 import 'package:flutter/material.dart';
 
-class DottedLineHelperPainterModel {
+class DashedLineHelperPainterModel {
   final Size size;
   final double? cursorPosition;
   final LineChartStockPerformanceModel stockData;
   final Animation<double> animation;
   late final LineChartSelectedPositionHelperModel _positionHelper;
 
-  DottedLineHelperPainterModel({
+  DashedLineHelperPainterModel({
     required this.size,
     required this.cursorPosition,
     required this.stockData,

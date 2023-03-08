@@ -39,7 +39,7 @@ class LineChartPainter extends CustomPainter {
   }
 
   void _drawDashedVerticalLines(Canvas canvas, Size size) {
-    var verticalLine = DottedLineHelperPainterModel(
+    var verticalLine = DashedLineHelperPainterModel(
       size: size,
       cursorPosition: cursorPosition,
       animation: animation,
