@@ -27,7 +27,9 @@ class LineChartHelperPainterModel {
   Paint get linePaint => Paint()
     ..color = Colors.blue
     ..strokeWidth = 1
-    ..style = PaintingStyle.stroke;
+    ..style = PaintingStyle.stroke
+    ..strokeCap = StrokeCap.round
+    ..strokeJoin = StrokeJoin.round;
 
   Path get _linePath {
     Path path = Path();
@@ -37,7 +39,6 @@ class LineChartHelperPainterModel {
       bool isFirst = stockData.data.first == element;
       isFirst ? path.moveTo(offset.dx, offset.dy) : path.lineTo(offset.dx, offset.dy);
     }
-
     return path;
   }
 
@@ -79,13 +80,16 @@ class LineChartHelperPainterModel {
     return dashPath;
   }
 
+  void _addPointToPath(Path path, LineChartDataModel element) {
+    Offset offset = _getOffsetFromValue(element, animationValue: animation.value);
+    path.lineTo(offset.dx, offset.dy);
+  }
+
   Path get gradientPath {
     Path path = Path()..moveTo(0, size.height);
 
-    for (LineChartDataModel element in stockData.data) {
-      Offset offset = _getOffsetFromValue(element, animationValue: animation.value);
-      path.lineTo(offset.dx, offset.dy);
-    }
+    stockData.data.forEach((element) => _addPointToPath(path, element));
+
     path.lineTo(size.width, size.height);
     path.close();
 

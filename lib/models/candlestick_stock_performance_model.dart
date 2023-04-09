@@ -4,7 +4,7 @@ import 'package:animated_charts/helpers/candlestick_helpers.dart';
 import 'package:animated_charts/models/candlestick_data_model.dart';
 
 class CandlestickStockPerformanceModel {
-  final List<CandlestickDataModel> data;
+  List<CandlestickDataModel> data;
   late double _open;
   late double _close;
   late double _high;

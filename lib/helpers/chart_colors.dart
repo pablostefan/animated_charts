@@ -24,7 +24,6 @@ abstract class ChartColors {
   static const Color lightMonochromaticMonoLight = Color.fromRGBO(233, 236, 239, 1);
   static const Color lightProductsWalletPrimary = Color.fromRGBO(251, 255, 223, 1);
   static const Color darkMonochromaticMono = Color.fromRGBO(36, 36, 36, 1);
-  static const Color darkMonochromaticMonoDark = Color.fromRGBO(166, 166, 166, 1);
   static const Color darkSliverAppBarColor = Color.fromRGBO(24, 24, 24, 1);
   static const Color darkError = Color.fromRGBO(255, 50, 62, 1);
   static const Color lightLine = Color.fromRGBO(233, 236, 239, 1);

@@ -37,7 +37,7 @@ class ValueTexHelperPainterModel {
   String get _valueText => '${_high - index * _distance}'.moneyMask();
 
   TextStyle get _valuesTextStyle {
-    Color textColor = ChartColors.monoBlack.withOpacity(animation.value);
+    Color textColor = ChartColors.darkTextAmount.withOpacity(animation.value);
 
     return TextStyle(color: textColor, fontSize: ChartDimens.micro);
   }

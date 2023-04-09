@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BarModel {
-  final double width;
-  final double height;
-  final double centerX;
-  final Paint paint;
+  final Paint barPaint;
+  final Rect barRect;
 
-  BarModel({required this.width, required this.height, required this.paint, required this.centerX});
+  BarModel({required this.barPaint, required this.barRect});
 }

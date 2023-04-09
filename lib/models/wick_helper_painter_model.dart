@@ -1,25 +1,35 @@
-import 'package:animated_charts/models/candlestick_math_helper_model.dart';
 import 'package:animated_charts/models/candlestick_paint_dimens_model.dart';
+import 'package:animated_charts/models/candlestick_stock_performance_model.dart';
 import 'package:flutter/material.dart';
 
 class WickHelperPainterModel {
   final CandlestickPaintDimensModel candlestick;
   final Size size;
   final Animation<double> animation;
+  final CandlestickStockPerformanceModel stockData;
 
-  WickHelperPainterModel({required this.candlestick, required this.size, required this.animation});
+  WickHelperPainterModel({
+    required this.candlestick,
+    required this.size,
+    required this.animation,
+    required this.stockData,
+  });
 
-  double get _candleCenterX => candlestick.centerX * animation.value;
+  double get _wickWith {
+    double wickWith = (size.width / stockData.data.length) * .15;
 
-  double get _halfWickWith => CandlestickMathHelperModel.wickWith / 2;
-
-  double get _wickLeft => _candleCenterX - _halfWickWith;
-
-  double get _wickRight => _candleCenterX + _halfWickWith;
+    return wickWith > 1 ? 1 : wickWith;
+  }
 
   double get _wickTop => size.height - candlestick.wickHighY;
 
   double get _wickBottom => size.height - candlestick.wickLowY;
 
-  Rect get wickRect => Rect.fromLTRB(_wickLeft, _wickTop, _wickRight, _wickBottom);
+  double get _wickCenterY => (_wickTop + _wickBottom) / 2;
+
+  double get _wickHeight => (_wickBottom - _wickTop) * animation.value;
+
+  Offset get _wickCenter => Offset(candlestick.centerX, _wickCenterY);
+
+  Rect get wickRect => Rect.fromCenter(center: _wickCenter, width: _wickWith, height: _wickHeight);
 }

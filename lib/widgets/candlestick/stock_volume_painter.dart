@@ -6,22 +6,31 @@ import 'package:flutter/material.dart';
 class StockVolumePainter extends CustomPainter {
   final CandlestickStockPerformanceModel? stockData;
   final Animation<double> animation;
+  final double? cursorPosition;
+  final bool showTooltip;
 
-  StockVolumePainter({required this.stockData, required this.animation});
+  StockVolumePainter({
+    required this.stockData,
+    required this.animation,
+    required this.cursorPosition,
+    required this.showTooltip,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
     if (stockData == null) return;
     if (stockData!.data.isEmpty) return;
 
-    BarHelperPainterModel barHelper = BarHelperPainterModel(stockData: stockData, animation: animation, size: size);
-    List<BarModel> bars = barHelper.generateBars;
+    BarHelperPainterModel barHelper = BarHelperPainterModel(
+        stockData: stockData!,
+        animation: animation,
+        size: size,
+        cursorPosition: cursorPosition,
+        showTooltip: showTooltip);
 
-    for (BarModel bar in bars) {
-      double barLeft = BarHelperPainterModel.getBarLeft(bar);
-      double barTop = BarHelperPainterModel.getBarTop(bar, size);
-
-      canvas.drawRect(Rect.fromLTWH(barLeft, barTop, bar.width, bar.height), bar.paint);
+    for (int index = 0; index < stockData!.data.length; index++) {
+      BarModel barModel = barHelper.getBarModel(index);
+      canvas.drawRect(barModel.barRect, barModel.barPaint);
     }
   }
 

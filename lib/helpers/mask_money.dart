@@ -1,15 +1,6 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:intl/intl.dart';
-
-enum Money { brl, usd }
-
-final Map<String, String> currency = {Money.brl.type: "R\$", Money.usd.type: "\$", "": ""};
-
-extension Type on Money {
-  String get type => name.toUpperCase();
-}
 
 extension MoneyFormat on String? {
   String moneyMask({int decimalDigits = 2, String? symbol}) {
@@ -23,9 +14,9 @@ extension Decimal on String? {
 }
 
 extension MoneyMask on double? {
-  String moneyMask({int decimalDigits = 2, String? symbol}) => NumberFormat.simpleCurrency(
-          locale: Platform.localeName, name: currency[symbol ?? "BRL"], decimalDigits: decimalDigits)
-      .format(this?.chartTruncateToDouble(decimalDigits) ?? 0);
+  String moneyMask({int decimalDigits = 2, String? symbol}) =>
+      NumberFormat.simpleCurrency(name: "BRL", decimalDigits: decimalDigits)
+          .format(this?.chartTruncateToDouble(decimalDigits) ?? 0);
 }
 
 extension TruncateDouble on double {
