@@ -1,6 +1,6 @@
 # Animated Charts
 
-Este é um projeto em Flutter que demonstra o uso de animações com AnimatedBuilder e Custom Paint para criar gráficos animados. O projeto pode ser encontrado [aqui](https://github.com/pablostefan/animated_charts).
+Este é um projeto em Flutter que demonstra o uso de animações com AnimatedBuilder e Custom Paint para criar gráficos animados.
 
 ## Recursos e Funcionalidades
 
